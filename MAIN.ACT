@@ -7,7 +7,7 @@ DEFINE
   COLOR0="$2C4",COLOR1="$2C5",COLOR2="$2C6",COLOR3="$2C7",COLOR4="$2C8",
   CHBAS="$2F4",
   RFILL="14",LFILL="15",LSLOPE="70",RSLOPE="71",GLADE="77",
-  STARTL="528",LOOP="1024"
+  STARTR="528",LOOP="1024"
 
 ;------------------------------------------------------------------------------
 
@@ -37,7 +37,7 @@ BYTE
   TILE=[0]
 CARD
   SDLSTL=$230,
-  CI=[STARTL]
+  CI=[STARTR]
 
 CARD POINTER LMS=$2007
 
@@ -136,7 +136,7 @@ PROC MAIN()
   MATRIX(CHBAS)=$50
 
   FOR I=0 TO 47 DO
-    SCREEN(I+STARTL+OFFSET(1))=GLADE
+    SCREEN(I+STARTR+OFFSET(1))=GLADE
   OD
 
   SDLSTL=DL
@@ -154,12 +154,12 @@ PROC MAIN()
     LMS^==+1
     CI==+1
 
-    IF CI=STARTL+LOOP THEN
+    IF CI=STARTR+LOOP THEN
       PUT(253)
       FOR I=0 TO 47 DO
-        SCREEN(I+STARTL+OFFSET(1))=GLADE
+        SCREEN(I+STARTR+OFFSET(1))=GLADE
       OD
-      NROW=0 CI=STARTL LMS^=$4000
+      NROW=0 CI=STARTR LMS^=$4000
     FI
   OD
 
