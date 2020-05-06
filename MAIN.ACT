@@ -150,9 +150,10 @@ PROC MAIN()
       HSCROL=I
       WAIT(1)
     OD
-    LMS^==+1
 
+    LMS^==+1
     CI==+1
+
     IF CI=STARTL+LOOP THEN
       FOR I=0 TO 47 DO
         SCREEN(I+STARTL+OFFSET(1))=GLADE
