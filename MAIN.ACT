@@ -37,9 +37,8 @@ BYTE
   TILE=[0]
 CARD
   SDLSTL=$230,
+  LMS=$2007,
   CI=[STARTR]
-
-CARD POINTER LMS=$2007
 
 ;------------------------------------------------------------------------------
 
@@ -151,7 +150,7 @@ PROC MAIN()
       WAIT(1)
     OD
 
-    LMS^==+1
+    LMS==+1
     CI==+1
 
     IF CI=STARTR+LOOP THEN
@@ -159,7 +158,7 @@ PROC MAIN()
       FOR I=0 TO 47 DO
         SCREEN(I+STARTR+OFFSET(1))=GLADE
       OD
-      NROW=0 CI=STARTR LMS^=$4000
+      NROW=0 CI=STARTR LMS=$4000
     FI
   OD
 
