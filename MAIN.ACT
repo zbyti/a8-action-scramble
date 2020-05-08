@@ -8,7 +8,7 @@ DEFINE
 
 DEFINE
   COLOR0="$2C4",COLOR1="$2C5",COLOR2="$2C6",COLOR3="$2C7",COLOR4="$2C8",
-  CHBAS="$2F4",SETVBV="$E45C"
+  CHBAS="$2F4",SETVBV="$E45C",NMIEN="$D40E"
 
 DEFINE
   RFILL="14",LFILL="15",LSLOPE="70",RSLOPE="71",GLADE="77",
@@ -19,16 +19,26 @@ DEFINE
 BYTE ARRAY
   DL=[
     $70
-    $42$28$20
+    $42$D6$20
+    $70$F0
+    $D2$00$40 $92$92$92$92$92$92$92$12$12$12$12$12$12$12$12$12$12$12
     $70$70
-    $52$00$40 $12$12$12$12$12$12$12$12$12$12$12$12$12$12$12$12$12$12
-    $70$70
-    $42$53$20
+    $42$01$21
     $41$00$20
   ],
+  DLI00=[PHA LDAI $8C STA $0A $D4 STA $18 $D0 LDAI $3C STA 0 2 LDAI $20 STA 1 2 PLA RTI],
+  DLI01=[PHA LDAI $8A STA $0A $D4 STA $18 $D0 LDAI $53 STA 0 2 LDAI $20 STA 1 2 PLA RTI],
+  DLI02=[PHA LDAI $88 STA $0A $D4 STA $18 $D0 LDAI $6A STA 0 2 LDAI $20 STA 1 2 PLA RTI],
+  DLI03=[PHA LDAI $86 STA $0A $D4 STA $18 $D0 LDAI $81 STA 0 2 LDAI $20 STA 1 2 PLA RTI],
+  DLI04=[PHA LDAI $84 STA $0A $D4 STA $18 $D0 LDAI $98 STA 0 2 LDAI $20 STA 1 2 PLA RTI],
+  DLI05=[PHA LDAI $82 STA $0A $D4 STA $18 $D0 LDAI $AF STA 0 2 LDAI $20 STA 1 2 PLA RTI],
+  DLI06=[PHA LDAI $80 STA $0A $D4 STA $18 $D0 LDAI $C6 STA 0 2 LDAI $20 STA 1 2 PLA RTI],
+  DLI07=[PHA LDAI 0 STA $0A $D4 STA $18 $D0 PLA RTI]
+
+BYTE ARRAY
   SCREEN=START,
-  TEXT_1="             ascii scramble             ",
-  TEXT_2="score                         fuel      ",
+  TEXT1="             ascii scramble             ",
+  TEXT2="score                         fuel      ",
   MATRIX=0
 
   ; OFFSET+4
@@ -48,6 +58,7 @@ BYTE
   TILE=[0]
 
 CARD
+  VDSLST=$200,
   SDLSTL=$230,
   VVBLKD=$224
 
@@ -154,10 +165,11 @@ RETURN
 ;------------------------------------------------------------------------------
 
 PROC VBLANKD()
+  VDSLST=DLI00
   IF HSCROLI=$FF THEN
     TERRAIN()
     IF LMS=START+LOOP THEN
-      FOR I0=0 TO 47 DO
+      FOR I0=0 TO $2F DO
         SCREEN(I0+STARTROW+OFFSET(1))=GLADE
       OD
       NROW=0 CI0=STARTROW LMS=$4000
@@ -180,11 +192,17 @@ PROC INIT()
   LOAD("H1:SCRAMBLE.FNT",$1000,$400,4)
   MATRIX(CHBAS)=$10
 
-  FOR I0=0 TO 47 DO
+  FOR I0=0 TO $2F DO
     SCREEN(I0+STARTROW+OFFSET(1))=GLADE
   OD
 
+  MATRIX(COLOR1)=$E
+  MATRIX(COLOR2)=0
+  MATRIX(COLOR4)=2
+
   SDLSTL=DL
+  VDSLST=DLI00
+  MATRIX(NMIEN)=$C0
 RETURN
 
 ;------------------------------------------------------------------------------
