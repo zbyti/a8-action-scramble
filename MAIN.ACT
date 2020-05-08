@@ -4,45 +4,66 @@ SET $491=$2000
 ;------------------------------------------------------------------------------
 
 DEFINE
+  RTI="$40",PHA="$48",PLA="$68",JMPI="$6C",STA="$8D",LDAI="$A9"
+
+DEFINE
   COLOR0="$2C4",COLOR1="$2C5",COLOR2="$2C6",COLOR3="$2C7",COLOR4="$2C8",
-  CHBAS="$2F4",
+  CHBAS="$2F4",SETVBV="$E45C"
+
+DEFINE
   RFILL="14",LFILL="15",LSLOPE="70",RSLOPE="71",GLADE="77",
-  STARTR="528",LOOP="1024"
+  START="$4000",STARTROW="$210",LOOP="$200"
 
 ;------------------------------------------------------------------------------
 
 BYTE ARRAY
   DL=[
     $70
-    $46$28$20
+    $42$28$20
     $70$70
     $52$00$40 $12$12$12$12$12$12$12$12$12$12$12$12$12$12$12$12$12$12
     $70$70
-    $46$3F$20
+    $42$53$20
     $41$00$20
   ],
-  SCREEN=$4000,
-  TEXT_1="@@@ascii@scramble@@@",
-  TEXT_2="scoreZ@@@@@livesZ@@@",
+  SCREEN=START,
+  TEXT_1="             ascii scramble             ",
+  TEXT_2="score                         fuel      ",
   MATRIX=0
 
-CARD ARRAY OFFSET=[332 284 236 188 140 92 44]
+  ; OFFSET+4
+  CARD ARRAY OFFSET=[$150 $120 $F0 $C0 $90 $60 $30]
 
 BYTE
   CH=$2FC,
   HSCROL=$D404,
   WSYNC=$D40A,
   RANDOM=$D20A,
+  RTCLOCK=$14
+
+BYTE
   ROW,NROW=[0],
+  HSCROLI=$CA,
+  I0=$CB,I1=$CC,I3=$CD,
   TILE=[0]
+
 CARD
   SDLSTL=$230,
+  VVBLKD=$224
+
+CARD
+  OLDVBL,
   LMS=$2007,
-  CI=[STARTR]
+  CI0=[STARTROW],
+  C11=$CE
 
 ;------------------------------------------------------------------------------
 
 PROC WAIT=*(BYTE F)[$18$65$14$C5$14$D0$FC$60]
+
+;------------------------------------------------------------------------------
+
+PROC SETVBLK=SETVBV(BYTE WHICH,MSB,LSB)
 
 ;------------------------------------------------------------------------------
 
@@ -60,113 +81,122 @@ RETURN
 PROC TERRAIN()
   BYTE SHIP
 
-  SCREEN(CI+380)=0
-  SCREEN(CI+OFFSET(0))=0
-  SCREEN(CI+OFFSET(1))=0
-  SCREEN(CI+OFFSET(2))=0
-  SCREEN(CI+OFFSET(3))=0
-  SCREEN(CI+OFFSET(4))=0
-  SCREEN(CI+OFFSET(5))=0
-  SCREEN(CI+OFFSET(6))=0
-  SCREEN(CI)=0
+  SCREEN(CI0+$180)=0
+  SCREEN(CI0+OFFSET(0))=0
+  SCREEN(CI0+OFFSET(1))=0
+  SCREEN(CI0+OFFSET(2))=0
+  SCREEN(CI0+OFFSET(3))=0
+  SCREEN(CI0+OFFSET(4))=0
+  SCREEN(CI0+OFFSET(5))=0
+  SCREEN(CI0+OFFSET(6))=0
+  SCREEN(CI0)=0
 
   TILE=RANDOM & 3
   ROW=NROW
 
   IF (ROW>0) AND (ROW<6) THEN
     IF TILE<2 THEN
-      SCREEN(CI+OFFSET(ROW))=GLADE
+      SCREEN(CI0+OFFSET(ROW))=GLADE
       IF ROW<5 THEN
         SHIP=RANDOM & 13
         IF SHIP=1 THEN
-          SCREEN(CI+OFFSET(ROW+1))=2
-          SCREEN(CI+OFFSET(ROW+2))=12
+          SCREEN(CI0+OFFSET(ROW+1))=2
+          SCREEN(CI0+OFFSET(ROW+2))=12
         ELSEIF SHIP=3 THEN
-          SCREEN(CI+OFFSET(ROW+1))=3
-          SCREEN(CI+OFFSET(ROW+2))=11
+          SCREEN(CI0+OFFSET(ROW+1))=3
+          SCREEN(CI0+OFFSET(ROW+2))=11
         ELSEIF SHIP=5 THEN
-          SCREEN(CI+OFFSET(ROW+1))=2
-          SCREEN(CI+OFFSET(ROW+2))=11
+          SCREEN(CI0+OFFSET(ROW+1))=2
+          SCREEN(CI0+OFFSET(ROW+2))=11
         ELSEIF SHIP=7 THEN
-          SCREEN(CI+OFFSET(ROW+1))=4
-          SCREEN(CI+OFFSET(ROW+2))=13
+          SCREEN(CI0+OFFSET(ROW+1))=4
+          SCREEN(CI0+OFFSET(ROW+2))=13
         ELSEIF SHIP=9 THEN
-          SCREEN(CI+OFFSET(ROW+1))=3
-          SCREEN(CI+OFFSET(ROW+2))=13
+          SCREEN(CI0+OFFSET(ROW+1))=3
+          SCREEN(CI0+OFFSET(ROW+2))=13
         FI
       FI
       RETURN
     ELSEIF TILE=2 THEN
       NROW=ROW-1
-      SCREEN(CI+OFFSET(NROW))=RFILL
-      SCREEN(CI+OFFSET(ROW))=RSLOPE
+      SCREEN(CI0+OFFSET(NROW))=RFILL
+      SCREEN(CI0+OFFSET(ROW))=RSLOPE
       RETURN
     ELSEIF TILE=3 THEN
       NROW=ROW+1
-      SCREEN(CI+OFFSET(ROW))=LFILL
-      SCREEN(CI+OFFSET(NROW))=LSLOPE
+      SCREEN(CI0+OFFSET(ROW))=LFILL
+      SCREEN(CI0+OFFSET(NROW))=LSLOPE
       RETURN
     FI
   FI
 
   IF ROW=6 THEN
     IF TILE=3 THEN
-      SCREEN(CI+OFFSET(6))=GLADE
+      SCREEN(CI0+OFFSET(6))=GLADE
       RETURN
     ELSE
-      SCREEN(CI+OFFSET(5))=RFILL
-      SCREEN(CI+OFFSET(6))=RSLOPE NROW=5
+      SCREEN(CI0+OFFSET(5))=RFILL
+      SCREEN(CI0+OFFSET(6))=RSLOPE NROW=5
       RETURN
     FI
   FI
 
   IF ROW=0 AND TILE<2 THEN
-    SCREEN(CI+OFFSET(0))=GLADE
+    SCREEN(CI0+OFFSET(0))=GLADE
     RETURN
   ELSEIF ROW=0 THEN
-    SCREEN(CI+OFFSET(0))=LFILL
-    SCREEN(CI+OFFSET(1))=LSLOPE NROW=1
+    SCREEN(CI0+OFFSET(0))=LFILL
+    SCREEN(CI0+OFFSET(1))=LSLOPE NROW=1
     RETURN
   FI
 RETURN
 
 ;------------------------------------------------------------------------------
 
-PROC MAIN()
-  BYTE I=$CA
+PROC VBLANKD()
+  IF HSCROLI=$FF THEN
+    TERRAIN()
+    IF LMS=START+LOOP THEN
+      FOR I0=0 TO 47 DO
+        SCREEN(I0+STARTROW+OFFSET(1))=GLADE
+      OD
+      NROW=0 CI0=STARTROW LMS=$4000
+    ELSE
+      LMS==+1 CI0==+1
+    FI
+    HSCROLI=3
+  FI
+  HSCROL=HSCROLI HSCROLI==-1
+[JMPI OLDVBL]
 
+;------------------------------------------------------------------------------
+
+PROC INIT()
   SETBLOCK($4000,$FFF,00)
 
-  LOAD("H1:SCRAMBLE.FNT",$5000,$400,4)
-  MATRIX(CHBAS)=$50
+  OLDVBL=VVBLKD
+  NROW=0 TILE=0 CI0=STARTROW HSCROLI=3
 
-  FOR I=0 TO 47 DO
-    SCREEN(I+STARTR+OFFSET(1))=GLADE
+  LOAD("H1:SCRAMBLE.FNT",$1000,$400,4)
+  MATRIX(CHBAS)=$10
+
+  FOR I0=0 TO 47 DO
+    SCREEN(I0+STARTROW+OFFSET(1))=GLADE
   OD
 
   SDLSTL=DL
+RETURN
 
-  WHILE CH#28 DO
-    TERRAIN()
+;------------------------------------------------------------------------------
 
-    I=4
-    WHILE I DO
-      I==-1
-      HSCROL=I
-      WAIT(1)
-    OD
+PROC MAIN()
+  INIT()
 
-    LMS==+1
-    CI==+1
+  SETVBLK(7,(VBLANKD RSH 8),VBLANKD)
 
-    IF CI=STARTR+LOOP THEN
-      PUT(253)
-      FOR I=0 TO 47 DO
-        SCREEN(I+STARTR+OFFSET(1))=GLADE
-      OD
-      NROW=0 CI=STARTR LMS=$4000
-    FI
-  OD
+  WHILE CH#$1C DO OD ; press ESC
+
+  SETVBLK(7,(OLDVBL RSH 8),OLDVBL)
 
   GRAPHICS(0)
 RETURN
