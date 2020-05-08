@@ -4,7 +4,7 @@ SET $491=$2000
 ;------------------------------------------------------------------------------
 
 DEFINE
-  RTI="$40",PHA="$48",PLA="$68",JMPI="$6C",STA="$8D",LDAI="$A9",DEC="$CE",CPMI="$C9",BNE="$D0"
+  RTI="$40",PHA="$48",PLA="$68",JMPI="$6C",STA="$8D",LDAI="$A9",DEC="$CE",CMPI="$C9",BNE="$D0"
 
 DEFINE
   COLOR0="$2C4",COLOR1="$2C5",COLOR2="$2C6",COLOR3="$2C7",COLOR4="$2C8",
@@ -202,6 +202,7 @@ PROC INIT()
   MATRIX(COLOR4)=2
 
   SDLSTL=DL
+  DLI(2)=$8C
   VDSLST=DLI
   MATRIX(NMIEN)=$C0
 RETURN
