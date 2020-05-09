@@ -1,5 +1,16 @@
 ;------------------------------------------------------------------------------
-; ACTION! 3.7P BY JAC! https://atariwiki.org/wiki/Wiki.jsp?page=Action
+; Action! 3.7P BY JAC! https://atariwiki.org/wiki/Wiki.jsp?page=Action
+;------------------------------------------------------------------------------
+; ATARI MEMORY MAP     https://www.atariarchives.org/mapping/memorymap.php
+;------------------------------------------------------------------------------
+; Atari800             https://atari800.github.io
+; Graph2Font           http://g2f.atari8.info/instrukcja.html
+; Atari FontMaker      https://sourceforge.net/projects/atari-fontmaker
+; Sprite Editor XL     http://bocianu.atari.pl/blog/spriteXL
+;------------------------------------------------------------------------------
+; Sublime Text 3       https://www.sublimetext.com/3
+; Syntax highliting scheme for Action! ATARI language
+; https://github.com/michalkolodziejski/ST3-action-syntax-highlighting
 ;------------------------------------------------------------------------------
 
 MODULE
@@ -13,7 +24,6 @@ SET $491=$2000
 
 ;------------------------------------------------------------------------------
 ; DEFINED CONSTANTS
-; MEMORY MAP: https://www.atariarchives.org/mapping/memorymap.php
 ;------------------------------------------------------------------------------
 
 ; ML OPCODES
