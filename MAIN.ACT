@@ -20,19 +20,19 @@ DEFINE
 BYTE ARRAY
   DL=[
     $70
-    $42 $44 $20
+    $42 $49 $20
     $70 $F0
     $D2 $00 $40
     $92 $92 $92 $92 $92 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12
     $70 $70
-    $42 $6F $20
+    $42 $74 $20
     $41 $00 $20
   ],
   DLI=[
     PHA
-    LDAI 0 STA $0A $D4 STA $18 $D0
+    LDAI $8C STA $0A $D4 STA $18 $D0
     DEC $27 $20 DEC $27 $20
-    CMPI $80 BNE 5 LDAI 0 STA $18 $D0
+    CMPI $80 BNE $A LDAI 0 STA $18 $D0 LDAI $8C STA $27 $20
     PLA
     RTI
   ]
@@ -167,7 +167,6 @@ RETURN
 ;------------------------------------------------------------------------------
 
 PROC VBLANKD()
-  DLI(2)=$8C
   VDSLST=DLI
   IF HSCROLI=$FF THEN
     TERRAIN()
@@ -204,7 +203,6 @@ PROC INIT()
   MATRIX(COLOR4)=2
 
   SDLSTL=DL
-  DLI(2)=$8C
   VDSLST=DLI
   MATRIX(NMIEN)=$C0
 RETURN
