@@ -86,7 +86,7 @@ BYTE
 BYTE
   ROW,NEXTROW=[0],TILE=[0],
   HSCROLI=$CA,
-  I0=$CB,I1=$CC,I3=$CD,I4=$CE
+  I0=$CB,I1=$CC
 
 ; MEMORY MAP
 CARD
@@ -98,7 +98,8 @@ CARD
 CARD
   OLDVBL,
   LMS=$2007,
-  SCREENI=[STARTROW]
+  SCREENI=[STARTROW],
+  CI0=$CD
 
 ;------------------------------------------------------------------------------
 ; INCLUDES
