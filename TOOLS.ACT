@@ -1,0 +1,16 @@
+PROC WAIT=*(BYTE F)[$18$65$14$C5$14$D0$FC$60]
+
+;------------------------------------------------------------------------------
+
+PROC SETVBLK=SETVBV(BYTE WHICH,MSB,LSB)
+
+;------------------------------------------------------------------------------
+
+;M=4 LOAD, M=8 SAVE
+PROC LOAD(CARD FILE,SADDR,NBYTES, BYTE M)
+  CLOSE(2) OPEN(2,FILE,M,128)
+  IF M=4 THEN POKE($362,7)
+  ELSE POKE($362,11) FI
+  POKEC($364,SADDR) POKEC($368,NBYTES)
+  [$A2$20$20$56$E4$85$A3] CLOSE(2)
+RETURN
