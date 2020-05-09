@@ -68,10 +68,11 @@ BYTE ARRAY
 BYTE ARRAY
   SCREEN=START,
   TEXT1="             ascii scramble             ",
-  TEXT2="score                         fuel      ",
-  ; THIS ARRAY REPRESENTING THE ENTIRE COMPUTER MEMORY
-  ; USE THIS INSTEAD PEEK AND POKE
-  MATRIX=0
+  TEXT2="score                         fuel      "
+
+; THIS ARRAY REPRESENTING THE ENTIRE MEMORY
+; USE THIS INSTEAD PEEK AND POKE
+BYTE ARRAY  MATRIX=0
 
 ; OFFSET=ROW+4
 CARD ARRAY OFFSET=[$150 $120 $F0 $C0 $90 $60 $30]
