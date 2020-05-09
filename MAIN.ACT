@@ -1,8 +1,12 @@
+MODULE
+
+;------------------------------------------------------------------------------
+; CODEBASE START
 SET $E=$2000
 SET $491=$2000
 
 ;------------------------------------------------------------------------------
-
+; DEFINED CONSTANTS
 DEFINE
   RTI="$40",PHA="$48",PLA="$68",JMPI="$6C",STA="$8D",LDAI="$A9",
   CMPI="$C9",DEC="$CE",BNE="$D0"
@@ -17,7 +21,7 @@ DEFINE
   START="$4000",STARTROW="$210",LOOP="$200"
 
 ;------------------------------------------------------------------------------
-
+; GLOBAL VARIABLES
 BYTE ARRAY
   DL=[
     $70
@@ -40,6 +44,8 @@ BYTE ARRAY
   SCREEN=START,
   TEXT1="             ascii scramble             ",
   TEXT2="score                         fuel      ",
+  ; THIS ARRAY REPRESENTING THE ENTIRE COMPUTER MEMORY
+  ; USE THIS INSTEAD PEEK AND POKE
   MATRIX=0
 
 ; OFFSET+4
@@ -50,7 +56,7 @@ BYTE
   RANDOM=$D20A,HSCROL=$D404,WSYNC=$D40A,NMIEN=$D40E
 
 BYTE
-  ROW,NROW=[0],TILE=[0],
+  ROW,NEXTROW=[0],TILE=[0],
   HSCROLI=$CA,
   I0=$CB,I1=$CC,I3=$CD,I4=$CE
 
@@ -65,24 +71,18 @@ CARD
   SCREENI=[STARTROW]
 
 ;------------------------------------------------------------------------------
-
+; INCLUDES
 INCLUDE "H6:TOOLS.ACT"
-
-;------------------------------------------------------------------------------
-
 INCLUDE "H6:TERRAIN.ACT"
-
-;------------------------------------------------------------------------------
-
 INCLUDE "H6:VBLANKD.ACT"
 
 ;------------------------------------------------------------------------------
-
+; INITIATION OF GLOBAL VARIABLES
 PROC INIT()
   SETBLOCK($4000,$FFF,00)
 
   OLDVBL=VVBLKD
-  NROW=0 TILE=0 SCREENI=STARTROW HSCROLI=3
+  NEXTROW=0 TILE=0 SCREENI=STARTROW HSCROLI=3
 
   LOAD("H1:SCRAMBLE.FNT",$1000,$400,4)
   CHBAS=$10
@@ -101,7 +101,7 @@ PROC INIT()
 RETURN
 
 ;------------------------------------------------------------------------------
-
+; LAUNCH PROCEDURE
 PROC MAIN()
   SDMCTL=0 INIT() SDMCTL=$22
   SETVBLK(7,(VBLANKD RSH 8),VBLANKD)
