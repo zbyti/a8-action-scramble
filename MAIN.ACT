@@ -66,116 +66,15 @@ CARD
 
 ;------------------------------------------------------------------------------
 
-PROC WAIT=*(BYTE F)[$18$65$14$C5$14$D0$FC$60]
+INCLUDE "H6:TOOLS.ACT"
 
 ;------------------------------------------------------------------------------
 
-PROC SETVBLK=SETVBV(BYTE WHICH,MSB,LSB)
+INCLUDE "H6:TERRAIN.ACT"
 
 ;------------------------------------------------------------------------------
 
-;M=4 LOAD, M=8 SAVE
-PROC LOAD(CARD FILE,SADDR,NBYTES, BYTE M)
-  CLOSE(2) OPEN(2,FILE,M,128)
-  IF M=4 THEN POKE($362,7)
-  ELSE POKE($362,11) FI
-  POKEC($364,SADDR) POKEC($368,NBYTES)
-  [$A2$20$20$56$E4$85$A3] CLOSE(2)
-RETURN
-
-;------------------------------------------------------------------------------
-
-PROC TERRAIN()
-  BYTE SHIP
-
-  SCREEN(SCREENI+$180)=0
-  SCREEN(SCREENI+$150)=0
-  SCREEN(SCREENI+$120)=0
-  SCREEN(SCREENI+$F0)=0
-  SCREEN(SCREENI+$C0)=0
-  SCREEN(SCREENI+$90)=0
-  SCREEN(SCREENI+$60)=0
-  SCREEN(SCREENI+$30)=0
-  SCREEN(SCREENI)=0
-
-  TILE=RANDOM & 3
-  ROW=NROW
-
-  IF (ROW>0) AND (ROW<6) THEN
-    IF TILE<2 THEN
-      SCREEN(SCREENI+OFFSET(ROW))=GLADE
-      IF ROW<5 THEN
-        SHIP=RANDOM & 13
-        IF SHIP=1 THEN
-          SCREEN(SCREENI+OFFSET(ROW+1))=2
-          SCREEN(SCREENI+OFFSET(ROW+2))=12
-        ELSEIF SHIP=3 THEN
-          SCREEN(SCREENI+OFFSET(ROW+1))=3
-          SCREEN(SCREENI+OFFSET(ROW+2))=11
-        ELSEIF SHIP=5 THEN
-          SCREEN(SCREENI+OFFSET(ROW+1))=2
-          SCREEN(SCREENI+OFFSET(ROW+2))=11
-        ELSEIF SHIP=7 THEN
-          SCREEN(SCREENI+OFFSET(ROW+1))=4
-          SCREEN(SCREENI+OFFSET(ROW+2))=13
-        ELSEIF SHIP=9 THEN
-          SCREEN(SCREENI+OFFSET(ROW+1))=3
-          SCREEN(SCREENI+OFFSET(ROW+2))=13
-        FI
-      FI
-      RETURN
-    ELSEIF TILE=2 THEN
-      NROW=ROW-1
-      SCREEN(SCREENI+OFFSET(NROW))=RFILL
-      SCREEN(SCREENI+OFFSET(ROW))=RSLOPE
-      RETURN
-    ELSEIF TILE=3 THEN
-      NROW=ROW+1
-      SCREEN(SCREENI+OFFSET(ROW))=LFILL
-      SCREEN(SCREENI+OFFSET(NROW))=LSLOPE
-      RETURN
-    FI
-  FI
-
-  IF ROW=6 THEN
-    IF TILE=3 THEN
-      SCREEN(SCREENI+OFFSET(6))=GLADE
-      RETURN
-    ELSE
-      SCREEN(SCREENI+OFFSET(5))=RFILL
-      SCREEN(SCREENI+OFFSET(6))=RSLOPE NROW=5
-      RETURN
-    FI
-  FI
-
-  IF ROW=0 AND TILE<2 THEN
-    SCREEN(SCREENI+OFFSET(0))=GLADE
-    RETURN
-  ELSEIF ROW=0 THEN
-    SCREEN(SCREENI+OFFSET(0))=LFILL
-    SCREEN(SCREENI+OFFSET(1))=LSLOPE NROW=1
-    RETURN
-  FI
-RETURN
-
-;------------------------------------------------------------------------------
-
-PROC VBLANKD()
-  VDSLST=DLI
-  IF HSCROLI=$FF THEN
-    TERRAIN()
-    IF LMS=START+LOOP THEN
-      FOR I0=0 TO $2F DO
-        SCREEN(I0+STARTROW+OFFSET(1))=GLADE
-      OD
-      NROW=0 SCREENI=STARTROW LMS=$4000
-    ELSE
-      LMS==+1 SCREENI==+1
-    FI
-    HSCROLI=3
-  FI
-  HSCROL=HSCROLI HSCROLI==-1
-[JMPI OLDVBL]
+INCLUDE "H6:VBLANKD.ACT"
 
 ;------------------------------------------------------------------------------
 
