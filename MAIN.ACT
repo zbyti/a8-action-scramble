@@ -113,7 +113,7 @@ INCLUDE "H6:TERRAIN.ACT"
 INCLUDE "H6:VBLANKD.ACT"
 
 ;------------------------------------------------------------------------------
-; INITIATION OF GLOBAL VARIABLES
+; INITIALIZATION OF GLOBAL VARIABLES
 ;------------------------------------------------------------------------------
 
 PROC INIT()
