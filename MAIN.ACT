@@ -88,8 +88,8 @@ BYTE
 ; CUSTOM
 BYTE
   ROW,NEXTROW=[0],TILE=[0],
-  HSCROLI=$CA,
-  I0=$CB,I1=$CC
+  HSCROLI=$55, ; REUSE COLCRS
+  I0=$CA,I1=$CB
 
 ; MEMORY MAP
 CARD
@@ -102,7 +102,7 @@ CARD
   OLDVBL,
   LMS=$1007,
   SCREENI=[STARTROW],
-  CI0=$CD
+  CI0=$CC
 
 ;------------------------------------------------------------------------------
 ; INCLUDES
