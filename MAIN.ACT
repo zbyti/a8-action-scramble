@@ -52,14 +52,14 @@ DEFINE
 
 BYTE ARRAY
   DL=[
-    $70
-    $42 $49 CBMSB
-    $70 $F0
-    $D2 0 0
+    $70           ; EMPTY ROW
+    $42 $49 CBMSB ; FIRST TEXT ROW (GR.0)
+    $70 $F0       ; TWO EMPTY ROWS, LAST WITH DLI
+    $D2 0 0       ; STARTSCREEN (GR.0) WITH HSCROL AND DLI
     $92 $92 $92 $92 $92 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12
-    $70 $70
-    $42 $74 CBMSB
-    $41 $00 CBMSB
+    $70 $70       ; TWO EMPTY ROWS
+    $42 $74 CBMSB ; SECOND TEXT ROW (GR.0)
+    $41 $00 CBMSB ; JUMP TO BEGINING OF DL
   ],
   DLI=[
     PHA
