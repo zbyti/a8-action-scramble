@@ -20,8 +20,8 @@ MODULE
 ; CODEBASE START
 ;------------------------------------------------------------------------------
 
-SET $E=$2000
-SET $491=$2000
+SET $E=$1000
+SET $491=$1000
 
 ;------------------------------------------------------------------------------
 ; DEFINED CONSTANTS
@@ -41,7 +41,7 @@ DEFINE
 ; CUSTOM
 DEFINE
   RFILL="14",LFILL="15",LSLOPE="70",RSLOPE="71",GLADE="77",
-  START="$4000",STARTROW="$210",LOOP="$200"
+  STARTSCREEN="$6000",STARTROW="$210",LOOP="$200"
 
 ;------------------------------------------------------------------------------
 ; GLOBAL VARIABLES
@@ -50,23 +50,23 @@ DEFINE
 BYTE ARRAY
   DL=[
     $70
-    $42 $49 $20
+    $42 $49 $10
     $70 $F0
-    $D2 $00 $40
+    $D2 $00 $00
     $92 $92 $92 $92 $92 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12
     $70 $70
-    $42 $74 $20
-    $41 $00 $20
+    $42 $74 $10
+    $41 $00 $10
   ],
   DLI=[
     PHA
-    LDAI $8C STA $0A $D4 STA $18 $D0 DEC $27 $20 DEC $27 $20
-    CMPI $80 BNE $A LDAI 0 STA $18 $D0 LDAI $8C STA $27 $20
+    LDAI $8C STA $0A $D4 STA $18 $D0 DEC $27 $10 DEC $27 $10
+    CMPI $80 BNE $A LDAI 0 STA $18 $D0 LDAI $8C STA $27 $10
     PLA RTI
   ]
 
 BYTE ARRAY
-  SCREEN=START,
+  SCREEN=STARTSCREEN,
   TEXT1="             ascii scramble             ",
   TEXT2="score                         fuel      "
 
@@ -97,7 +97,7 @@ CARD
 ; CUSTOM
 CARD
   OLDVBL,
-  LMS=$2007,
+  LMS=$1007,
   SCREENI=[STARTROW],
   CI0=$CD
 
@@ -114,13 +114,13 @@ INCLUDE "H6:VBLANKD.ACT"
 ;------------------------------------------------------------------------------
 
 PROC INIT()
-  SETBLOCK($4000,$FFF,00)
+  SETBLOCK(STARTSCREEN,$FFF,00)
 
   OLDVBL=VVBLKD
   NEXTROW=0 TILE=0 SCREENI=STARTROW HSCROLI=3
 
-  LOAD("H1:SCRAMBLE.FNT",$1000,$400,4)
-  CHBAS=$10
+  LOAD("H1:SCRAMBLE.FNT",STARTSCREEN+$800,$400,4)
+  CHBAS=(STARTSCREEN+$800) RSH 8
 
   FOR I0=0 TO $2F DO
     SCREEN(I0+STARTROW+OFFSET(1))=GLADE
@@ -130,6 +130,7 @@ PROC INIT()
   MATRIX(COLOR2)=0
   MATRIX(COLOR4)=2
 
+  LMS=STARTSCREEN
   SDLSTL=DL
   VDSLST=DLI
   NMIEN=$C0
