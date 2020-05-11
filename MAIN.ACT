@@ -27,6 +27,9 @@ SET $491=$1000
 ; DEFINED CONSTANTS
 ;------------------------------------------------------------------------------
 
+; MSB OF SET CODEBASE
+DEFINE CBMSB="$10"
+
 ; ML OPCODES
 DEFINE
   RTI="$40",PHA="$48",PLA="$68",JMPI="$6C",STA="$8D",LDAI="$A9",
@@ -50,18 +53,18 @@ DEFINE
 BYTE ARRAY
   DL=[
     $70
-    $42 $49 $10
+    $42 $49 CBMSB
     $70 $F0
-    $D2 $00 $00
+    $D2 0 0
     $92 $92 $92 $92 $92 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12
     $70 $70
-    $42 $74 $10
-    $41 $00 $10
+    $42 $74 CBMSB
+    $41 $00 CBMSB
   ],
   DLI=[
     PHA
-    LDAI $8C STA $0A $D4 STA $18 $D0 DEC $27 $10 DEC $27 $10
-    CMPI $80 BNE $A LDAI 0 STA $18 $D0 LDAI $8C STA $27 $10
+    LDAI $8C STA $0A $D4 STA $18 $D0 DEC $27 CBMSB DEC $27 CBMSB
+    CMPI $80 BNE $A LDAI 0 STA $18 $D0 LDAI $8C STA $27 CBMSB
     PLA RTI
   ]
 
