@@ -44,7 +44,7 @@ DEFINE
 ; CUSTOM
 DEFINE
   RFILL="14",LFILL="15",LSLOPE="70",RSLOPE="71",GLADE="77",
-  STARTSCREEN="$6000",STARTROW="$210",LOOP="$200",CHARSETREL="$800"
+  STARTSCREEN="$2000",STARTROW="$210",LOOP="$200",CHARSETREL="$800"
 
 ;------------------------------------------------------------------------------
 ; GLOBAL VARIABLES
@@ -108,6 +108,7 @@ CARD
 ; INCLUDES
 ;------------------------------------------------------------------------------
 
+INCLUDE "H6:RUNTIME.ACT"
 INCLUDE "H6:TOOLS.ACT"
 INCLUDE "H6:TERRAIN.ACT"
 INCLUDE "H6:VBLANKD.ACT"
@@ -117,8 +118,6 @@ INCLUDE "H6:VBLANKD.ACT"
 ;------------------------------------------------------------------------------
 
 PROC INIT()
-  ZERO(STARTSCREEN,$FFF)
-
   OLDVBL=VVBLKD
   NEXTROW=0 TILE=0 SCREENI=STARTROW HSCROLI=3
 
