@@ -117,7 +117,7 @@ INCLUDE "H6:VBLANKD.ACT"
 ;------------------------------------------------------------------------------
 
 PROC INIT()
-  SETBLOCK(STARTSCREEN,$FFF,00)
+  ZERO(STARTSCREEN,$FFF)
 
   OLDVBL=VVBLKD
   NEXTROW=0 TILE=0 SCREENI=STARTROW HSCROLI=3
