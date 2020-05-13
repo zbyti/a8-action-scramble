@@ -7,7 +7,8 @@ BYTE ARRAY
     $70           ; EMPTY ROW
     $42 $4C CBMSB ; FIRST TEXT ROW (GR.0)
     $D2 0 0       ; STARTSCREEN (GR.0) WITH HSCROL AND DLI
-    $92 $92 $92 $92 $92 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12
+    $92 $92 $92 $92 $92 $12 $12 $12 $12 $12 $12
+    $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12
     $70 $70       ; TWO EMPTY ROWS
     $42 $77 CBMSB ; SECOND TEXT ROW (GR.0)
     $41 $00 CBMSB ; JUMP TO BEGINING OF DL
