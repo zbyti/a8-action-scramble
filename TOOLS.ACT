@@ -8,6 +8,11 @@
 PROC WAIT=*(BYTE F)[$18$65$14$C5$14$D0$FC$60]
 
 ;------------------------------------------------------------------------------
+; WAIT FOR GIVEN RASTER LINE
+;------------------------------------------------------------------------------
+PROC RSYNC=*(BYTE L)[$CD$0B$D4$D0$FB$60]
+
+;------------------------------------------------------------------------------
 ; SET SYSTEM TIMERS DURING THE VBLANK ROUTINE.
 ; USES THE 6502 X REGISTER FOR THE MSB OF VECTOR/TIMES,
 ; Y FOR THE LSB AND A FOR THE NUMBER OF THE VECTOR TO HACK (CHANGE).
