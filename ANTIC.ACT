@@ -1,0 +1,20 @@
+;------------------------------------------------------------------------------
+; CUSTOM DISPLAY LISTS AND DISPLAY LIST INTERRUPTS
+;------------------------------------------------------------------------------
+
+BYTE ARRAY
+  DL=[
+    $70           ; EMPTY ROW
+    $42 $4C CBMSB ; FIRST TEXT ROW (GR.0)
+    $D2 0 0       ; STARTSCREEN (GR.0) WITH HSCROL AND DLI
+    $92 $92 $92 $92 $92 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12
+    $70 $70       ; TWO EMPTY ROWS
+    $42 $77 CBMSB ; SECOND TEXT ROW (GR.0)
+    $41 $00 CBMSB ; JUMP TO BEGINING OF DL
+  ],
+  DLI=[
+    WSYNC PHA
+    LDAI $8A STA $18 $D0 DEC $2D CBMSB DEC $2D CBMSB
+    CMPI $80 BNE $A LDAI 0 STA $18 $D0 LDAI $8A STA $2D CBMSB
+    PLA RTI
+  ]

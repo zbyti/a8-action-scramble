@@ -14,8 +14,6 @@
 ; https://github.com/michalkolodziejski/ST3-action-syntax-highlighting
 ;------------------------------------------------------------------------------
 
-MODULE
-
 ;------------------------------------------------------------------------------
 ; CODEBASE START
 ;------------------------------------------------------------------------------
@@ -24,13 +22,13 @@ SET $E=$1000
 SET $491=$1000
 
 ;------------------------------------------------------------------------------
-; DEFINED CONSTANTS
+; DEFINED CONSTANTS AMD SNIPPETS
 ;------------------------------------------------------------------------------
 
 ; MSB OF SET CODEBASE
 DEFINE CBMSB="$10"
 
-; ML OPCODES AND SNIPPETS
+; ML OPCODES
 DEFINE
   RTI="$40",PHA="$48",PLA="$68",JMPI="$6C",STA="$8D",LDAI="$A9",
   CMPI="$C9",DEC="$CE",BNE="$D0", WSYNC="$8D$0A$D4"
@@ -47,25 +45,16 @@ DEFINE
   STARTSCREEN="$6000",STARTROW="$300",LOOP="$200",CHARSETREL="$800"
 
 ;------------------------------------------------------------------------------
+; MODULE CODE START HERE
+;------------------------------------------------------------------------------
+
+MODULE
+
+;------------------------------------------------------------------------------
 ; GLOBAL VARIABLES
 ;------------------------------------------------------------------------------
 
-BYTE ARRAY
-  DL=[
-    $70           ; EMPTY ROW
-    $42 $4C CBMSB ; FIRST TEXT ROW (GR.0)
-    $D2 0 0       ; STARTSCREEN (GR.0) WITH HSCROL AND DLI
-    $92 $92 $92 $92 $92 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12
-    $70 $70       ; TWO EMPTY ROWS
-    $42 $77 CBMSB ; SECOND TEXT ROW (GR.0)
-    $41 $00 CBMSB ; JUMP TO BEGINING OF DL
-  ],
-  DLI=[
-    WSYNC PHA
-    LDAI $8A STA $18 $D0 DEC $2D CBMSB DEC $2D CBMSB
-    CMPI $80 BNE $A LDAI 0 STA $18 $D0 LDAI $8A STA $2D CBMSB
-    PLA RTI
-  ]
+INCLUDE "H6:ANTIC.ACT"
 
 BYTE ARRAY
   SCREEN=STARTSCREEN,
