@@ -44,7 +44,7 @@ DEFINE
 ; CUSTOM
 DEFINE
   RFILL="14",LFILL="15",LSLOPE="70",RSLOPE="71",GLADE="77",
-  STARTSCREEN="$2000",STARTROW="$2A0",LOOP="$200",CHARSETREL="$800"
+  STARTSCREEN="$2000",STARTROW="$300",LOOP="$200",CHARSETREL="$800"
 
 ;------------------------------------------------------------------------------
 ; GLOBAL VARIABLES
@@ -54,23 +54,22 @@ BYTE ARRAY
   DL=[
     $70           ; EMPTY ROW
     $42 $4C CBMSB ; FIRST TEXT ROW (GR.0)
-    $70 $F0       ; TWO EMPTY ROWS, LAST WITH DLI
     $D2 0 0       ; STARTSCREEN (GR.0) WITH HSCROL AND DLI
-    $92 $92 $92 $92 $92 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12
+    $92 $92 $92 $92 $92 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12 $12
     $70 $70       ; TWO EMPTY ROWS
     $42 $77 CBMSB ; SECOND TEXT ROW (GR.0)
     $41 $00 CBMSB ; JUMP TO BEGINING OF DL
   ],
   DLI=[
     WSYNC PHA
-    LDAI $8C STA $18 $D0 DEC $2D CBMSB DEC $2D CBMSB
-    CMPI $80 BNE $A LDAI 0 STA $18 $D0 LDAI $8C STA $2D CBMSB
+    LDAI $8A STA $18 $D0 DEC $2D CBMSB DEC $2D CBMSB
+    CMPI $80 BNE $A LDAI 0 STA $18 $D0 LDAI $8A STA $2D CBMSB
     PLA RTI
   ]
 
 BYTE ARRAY
   SCREEN=STARTSCREEN,
-  TEXT1="             ascii scramble             ",
+  TEXT1="                                        ",
   TEXT2="score                         fuel      "
 
 ; THIS ARRAY REPRESENTING THE ENTIRE MEMORY
@@ -100,7 +99,7 @@ CARD
 ; CUSTOM
 CARD
   OLDVBL,
-  LMS=$1007,
+  LMS=$1005,
   SCREENI=[STARTROW],
   CI0=$CC
 
@@ -132,7 +131,7 @@ PROC INIT()
   OD
 
   MATRIX(COLOR1)=$E
-  MATRIX(COLOR2)=0
+  MATRIX(COLOR2)=$8C
   MATRIX(COLOR4)=2
 
   LMS=STARTSCREEN
@@ -171,7 +170,6 @@ PROC MAIN()
     FI
 
     HSCROL=HSCROLI HSCROLI==-1
-
     WAIT(1)
   OD ; press ESC]
 
