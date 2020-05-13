@@ -56,49 +56,12 @@ MODULE
 ;------------------------------------------------------------------------------
 
 INCLUDE "H6:ANTIC.ACT"
-
-BYTE ARRAY
-  SCREEN=STARTSCREEN,
-  TEXT1="                                        ",
-  TEXT2="score                         fuel      "
-
-; THIS ARRAY REPRESENTING THE ENTIRE MEMORY
-; USE THIS INSTEAD OF PEEK AND POKE
-BYTE ARRAY  MATRIX=0
-
-; ROWOFFSET=ROW+4
-CARD ARRAY ROWOFFSET=[$150 $120 $F0 $C0 $90 $60 $30]
-
-; MEMORY MAP
-BYTE
-  SDMCTL=$22F,CHBAS=$2F4,CH=$2FC,
-  RANDOM=$D20A,HSCROL=$D404,VCOUNT=$D40B,NMIEN=$D40E
-
-; CUSTOM
-BYTE
-  ROW,NEXTROW=[0],TILE=[0],
-  HSCROLI=$55, ; REUSED COLCRS
-  COUNTER=$57, ; REUSED DINDEX
-  I0=$CA,I1=$CB
-
-; MEMORY MAP
-CARD
-  VDSLST=$200,
-  SDLSTL=$230,
-  VVBLKD=$224
-
-; CUSTOM
-CARD
-  OLDVBL,
-  LMS=$1005,
-  SCREENI=[STARTROW],
-  CI0=$CC
+INCLUDE "H6:GLOBALS.ACT"
 
 ;------------------------------------------------------------------------------
-; INCLUDES
+; PROCEDURES AND FUNCTIONS
 ;------------------------------------------------------------------------------
 
-INCLUDE "H6:RUNTIME.ACT"
 INCLUDE "H6:TOOLS.ACT"
 INCLUDE "H6:TERRAIN.ACT"
 INCLUDE "H6:VBLANKD.ACT"
