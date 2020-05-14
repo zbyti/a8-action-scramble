@@ -74,7 +74,7 @@ PROC INIT()
   CARD
     VBLANKDADDR,NEWCHBAS
 
-  SDMCTL=0    ; TURN ON ANTIC
+  SDMCTL=0          ; TURN ON ANTIC
 
   POKE(COLOR1,$E)   ; WHITE CHAR / TERRAIN
   POKE(COLOR2,$8C)  ; BACKGROUND / SKY
@@ -98,7 +98,7 @@ PROC INIT()
   ;  1   1   000000 = $C0
   NMIEN=$C0
 
-  SDMCTL=$22  ; TURN OFF ANTIC
+  SDMCTL=$22        ; TURN OFF ANTIC
 RETURN
 
 ;------------------------------------------------------------------------------
