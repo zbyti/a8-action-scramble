@@ -2,6 +2,17 @@
 ; RUNTIME PROCEDURES AND FUNCTIONS
 ;------------------------------------------------------------------------------
 
+PROC Poke=*(CARD a BYTE v)
+[$85$A0$86$A1$98$A0$00$91$A0$60]
+
+PROC PokeC=*(CARD a, v)
+[$20 Poke $C8$A5$A3$91$A0$60]
+
+BYTE FUNC Peek=*(CARD a)
+CARD FUNC PeekC=*(CARD a)
+[$85$A2$86$A3$A0$00$B1$A2$85$A0$C8$B1
+$A2$85$A1$60]
+
 PROC SetBlock=*(CARD a, l, v)
 [$85$A0$86$A1$84$A2$A0$00$A5$A2$D0$04
 $A5$A3$F0$16$A5$A4$91$A0$C8$D0$02$E6
