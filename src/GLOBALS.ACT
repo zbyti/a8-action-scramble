@@ -4,7 +4,7 @@
 
 BYTE ARRAY
   SCREEN=STARTSCREEN,
-  TEXT="                                        "
+  TEXT="zbyti                                   "
 
 ; THIS ARRAY REPRESENTING THE ENTIRE MEMORY
 BYTE ARRAY  MATRIX=0
