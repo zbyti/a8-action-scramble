@@ -63,7 +63,7 @@ INCLUDE "H6:GLOBALS.ACT"
 ;------------------------------------------------------------------------------
 
 INCLUDE "H6:TOOLS.ACT"
-INCLUDE "H6:TERRAIN.ACT"
+INCLUDE "H6:WORLD.ACT"
 INCLUDE "H6:VBLANKD.ACT"
 INCLUDE "H6:LOOP.ACT"
 

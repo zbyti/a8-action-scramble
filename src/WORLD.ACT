@@ -1,10 +1,38 @@
 ;------------------------------------------------------------------------------
+; WORLD GENERATION PROCEDURE
+;------------------------------------------------------------------------------
+
+;------------------------------------------------------------------------------
+; PROCEDURE DRAWS BUILDINGS AND SPACE VEHICLES
+;------------------------------------------------------------------------------
+
+PROC SHIPS()
+  BYTE SHIPTYPE
+
+  SHIPTYPE=RANDOM & 15
+  IF SHIPTYPE=2 THEN
+    SCREEN(SCREENI+ROWOFFSET(ROW+1))=2
+    SCREEN(SCREENI+ROWOFFSET(ROW+2))=12
+  ELSEIF SHIPTYPE=4 THEN
+    SCREEN(SCREENI+ROWOFFSET(ROW+1))=3
+    SCREEN(SCREENI+ROWOFFSET(ROW+2))=11
+  ELSEIF SHIPTYPE=6 THEN
+    SCREEN(SCREENI+ROWOFFSET(ROW+1))=2
+    SCREEN(SCREENI+ROWOFFSET(ROW+2))=11
+  ELSEIF SHIPTYPE=8 THEN
+    SCREEN(SCREENI+ROWOFFSET(ROW+1))=4
+    SCREEN(SCREENI+ROWOFFSET(ROW+2))=13
+  ELSEIF SHIPTYPE=10 THEN
+    SCREEN(SCREENI+ROWOFFSET(ROW+1))=3
+    SCREEN(SCREENI+ROWOFFSET(ROW+2))=13
+  FI
+RETURN
+
+;------------------------------------------------------------------------------
 ; TERRAIN GENERATION PROCEDURE
 ;------------------------------------------------------------------------------
 
 PROC TERRAIN()
-  BYTE SHIP
-
   SCREEN(SCREENI+$180)=0
   SCREEN(SCREENI+$150)=0
   SCREEN(SCREENI+$120)=0
@@ -21,25 +49,7 @@ PROC TERRAIN()
   IF (ROW>0) AND (ROW<6) THEN
     IF TILE<2 THEN
       SCREEN(SCREENI+ROWOFFSET(ROW))=GLADE
-      IF ROW<5 THEN
-        SHIP=RANDOM & 15
-        IF SHIP=2 THEN
-          SCREEN(SCREENI+ROWOFFSET(ROW+1))=2
-          SCREEN(SCREENI+ROWOFFSET(ROW+2))=12
-        ELSEIF SHIP=4 THEN
-          SCREEN(SCREENI+ROWOFFSET(ROW+1))=3
-          SCREEN(SCREENI+ROWOFFSET(ROW+2))=11
-        ELSEIF SHIP=6 THEN
-          SCREEN(SCREENI+ROWOFFSET(ROW+1))=2
-          SCREEN(SCREENI+ROWOFFSET(ROW+2))=11
-        ELSEIF SHIP=8 THEN
-          SCREEN(SCREENI+ROWOFFSET(ROW+1))=4
-          SCREEN(SCREENI+ROWOFFSET(ROW+2))=13
-        ELSEIF SHIP=10 THEN
-          SCREEN(SCREENI+ROWOFFSET(ROW+1))=3
-          SCREEN(SCREENI+ROWOFFSET(ROW+2))=13
-        FI
-      FI
+      IF ROW<5 THEN SHIPS() FI
       RETURN
     ELSEIF TILE=2 THEN
       NEXTROW=ROW-1
