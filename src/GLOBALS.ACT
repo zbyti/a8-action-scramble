@@ -4,8 +4,7 @@
 
 BYTE ARRAY
   SCREEN=STARTSCREEN,
-  TEXT1="                                        ",
-  TEXT2="score                         fuel      "
+  TEXT="                                        "
 
 ; THIS ARRAY REPRESENTING THE ENTIRE MEMORY
 BYTE ARRAY  MATRIX=0
