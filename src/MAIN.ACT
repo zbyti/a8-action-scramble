@@ -21,7 +21,7 @@
 ; CODEBASE, CODEBASE MSB, LMS IN PLAYFIELD DISPLAY LIST AND OTHERS
 DEFINE
   CODEBASE="$1000",CBMSB="$10",LMSADDR="$1005",
-  STARTSCREEN="$9000",STARTROW="$360",LOOP="$300",CHARSETREL="$800"
+  STARTSCREEN="$2000",STARTROW="$360",LOOP="$300",CHARSETREL="$800"
 
 ; ML OPCODES
 DEFINE
@@ -71,8 +71,6 @@ INCLUDE "H6:LOOP.ACT"
 ;------------------------------------------------------------------------------
 ; INITIALIZING THE PROGRAM VARIABLES AND INTERRUPTIONS
 ;------------------------------------------------------------------------------
-
-SET $E=$4000
 
 PROC INIT()
   CARD POINTER ADDR
