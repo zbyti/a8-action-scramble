@@ -3,8 +3,6 @@
 ;------------------------------------------------------------------------------
 
 PROC MAINLOOP()
-  SETBLOCK(STARTSCREEN+STARTROW+$120,$30,GLADE)
-
   DO
     IF HSCROLI=$FF THEN
       TERRAIN()
