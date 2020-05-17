@@ -1,32 +1,35 @@
 ;------------------------------------------------------------------------------
-; CUSTOM DISPLAY LISTS AND DISPLAY LIST INTERRUPTS [GLOBAL VARIABLES]
+; CUSTOM DISPLAY LISTS AND DISPLAY LIST INTERRUPTS
 ;------------------------------------------------------------------------------
 
 BYTE ARRAY
+  SET $E=DLADDR
   DL=[
-    $70           ; EMPTY ROW
-    $42 0 0       ; FIRST TEXT ROW (GR.0)
-    $D2 0 0       ; STARTSCREEN (GR.0) WITH HSCROL AND DLI
+    $70             ; EMPTY ROW
+    $42 0 0         ; FIRST TEXT ROW (GR.0)
+    $D2 0 0         ; STARTSCREEN (GR.0) WITH HSCROL AND DLI
     $12 $92 $12 $92 $12 $92 $12 $92 $12 $92 $12 $12
     $12 $12 $12 $12 $12 $92 $92 $92 $92 $92 $92 $92 2
-    $70           ; EMPTY ROW
-    $41 $00 CBMSB ; JUMP TO BEGINING OF DL
+    $70             ; EMPTY ROW
+    $41 DLLSB DLMSB ; JUMP TO BEGINING OF DL
   ],
+  SET $E=DLIAADDR
   DLIA=[
     PHA
     LDAZ $56 WSYNC
     STA $18 $D0 PHA CLC ADCI 2 WSYNC
     STA $18 $D0 PLA WSYNC
     STA $18 $D0 DECZ $56 DECZ $56 CMPI $80 BNE $16
-    LDAI $E STAZ $56 LDAI $62 STA 0 2 LDAI CBMSB STA 1 2 LDAI 0 WSYNC
+    LDAI $E STAZ $56 LDAI $A0 STA 0 2 LDAI DLIMSB STA 1 2 LDAI 0 WSYNC
     STA $18 $D0
     PLA RTI
   ],
+  SET $E=DLIBADDR
   DLIB=[
     PHA
     LDAZ $56 WSYNC
     STA $17 $D0 DECZ $56 DECZ $56
-    CMPI $2 BNE $16 LDAI $8A STAZ $56 LDAI $26 STA 0 2 LDAI CBMSB STA 1 2 LDAI $E WSYNC
+    CMPI $2 BNE $16 LDAI $8A STAZ $56 LDAI $50 STA 0 2 LDAI DLIMSB STA 1 2 LDAI $E WSYNC
     STA $17 $D0
     PLA RTI
   ]

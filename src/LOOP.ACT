@@ -21,4 +21,4 @@ PROC MAINLOOP()
     WAIT(1)
 
   OD
-RETURN
+RET

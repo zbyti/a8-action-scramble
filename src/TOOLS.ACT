@@ -57,15 +57,3 @@ PROC RSYNC=*(BYTE L)[$CD$0B$D4$D0$FB$60]
 ; Y FOR THE LSB AND A FOR THE NUMBER OF THE VECTOR TO HACK (CHANGE).
 ;------------------------------------------------------------------------------
 PROC SETVBLK=SETVBV(BYTE WHICH,MSB,LSB)
-
-;------------------------------------------------------------------------------
-; LOAD (OR SAVE) BINARY DATA TO THE INDICATED ADDRESS
-; M=4 LOAD, M=8 SAVE
-;------------------------------------------------------------------------------
-PROC LOAD(CARD FILE,STARTADDR,NBYTES BYTE M)
-  CLOSE(2) OPEN(2,FILE,M,128)
-  IF M=4 THEN POKE($362,7)
-  ELSE POKE($362,11) FI
-  POKEC($364,STARTADDR) POKEC($368,NBYTES)
-  [$A2$20$20$56$E4$85$A3] CLOSE(2)
-RETURN

@@ -18,14 +18,16 @@
 ; CONSTANT-LIKE DEFINITIONS AMD CODE SNIPPETS
 ;------------------------------------------------------------------------------
 
-; CODEBASE, CODEBASE MSB, LMS IN PLAYFIELD DISPLAY LIST AND OTHERS
 DEFINE
-  CODEBASE="$1000",CBMSB="$10",LMSADDR="$1005",
-  CHARSET="$9000",STARTSCREEN="$2000",STARTROW="$360",LOOP="$300"
+  DLADDR="$1000",DLMSB="$10",DLLSB="0",LMSADDR="$1005",
+  DLIAADDR="$1050",DLIBADDR="$10A0",DLIMSB="$10",
+  STARTSCREEN="$8000",CHARSET="$8800",
+  STARTROW="$360",LOOP="$300",
+  MAINADDR="$9000"
 
 ; ML OPCODES
 DEFINE
-  CLC="$18",RTI="$40",PHA="$48",PLA="$68",ADCI="$69",JMPI="$6C",
+  CLC="$18",RTI="$40",PHA="$48", RTS="$60",PLA="$68",ADCI="$69",JMPI="$6C",
   STAZ="$85",STA="$8D",LDAI="$A9",LDAZ="$A5",LDA="$AD",
   CMPI="$C9",DECZ="$C6",DEC="$CE",BNE="$D0",INC="$EE",
   WSYNC="$8D$0A$D4"
@@ -36,16 +38,12 @@ DEFINE
   COLPF0="$D016",COLPF1="$D017",COLPF2="$D018",COLPF3="$D019",COLBK="$D01A",
   SETVBV="$E45C"
 
-; CUSTOM
+; HELPERS
 DEFINE
-  RFILL="14",LFILL="15",LSLOPE="70",RSLOPE="71",GLADE="77"
-
-;------------------------------------------------------------------------------
-; COMPILATOR DIRECTIVES
-;------------------------------------------------------------------------------
-
-SET $E=CODEBASE
-SET $491=CODEBASE
+  RFILL="14",LFILL="15",LSLOPE="70",RSLOPE="71",GLADE="77",
+  ROCKETBODY="SCREEN(SCREENI+ROWOFFSET(ROW+1))",
+  ROCKETHEAD="SCREEN(SCREENI+ROWOFFSET(ROW+2))",
+  RET="[96]"
 
 ;------------------------------------------------------------------------------
 ; MODULE CODE START HERE
@@ -57,6 +55,7 @@ MODULE
 ; GLOBAL VARIABLES
 ;------------------------------------------------------------------------------
 
+INCLUDE "H6:ASSETS.ACT"
 INCLUDE "H6:ANTIC.ACT"
 INCLUDE "H6:GLOBALS.ACT"
 
@@ -68,54 +67,16 @@ INCLUDE "H6:TOOLS.ACT"
 INCLUDE "H6:WORLD.ACT"
 INCLUDE "H6:VBLANKD.ACT"
 INCLUDE "H6:LOOP.ACT"
-
-;------------------------------------------------------------------------------
-; INITIALIZING THE PROGRAM VARIABLES AND INTERRUPTIONS
-;------------------------------------------------------------------------------
-
-PROC INIT()
-  CARD POINTER ADDR
-
-  SDMCTL=0          ; TURN ON ANTIC
-
-  SETBLOCK(STARTSCREEN,$800,0)
-
-  POKE(COLOR1,$E)   ; WHITE CHAR / TERRAIN
-  POKE(COLOR2,$8C)  ; BACKGROUND / SKY
-  POKE(COLOR4,0)    ; BORDER
-  DLICOLOR=$8A
-
-  NEXTROW=0 TILE=0 HSCROLI=3
-  LMS=STARTSCREEN SCREENI=STARTROW
-
-  SETBLOCK(TEXT,$30,0)
-  ; SET TEXT LMS IN DISPLAY LIST
-  ADDR=DL+2 ADDR^=TEXT
-
-  ADDR=CHARSET
-  LOAD("H1:SCRAMBLE.FNT",ADDR,$400,4)
-  CHBAS=PEEK(@ADDR+1)
-
-  SDLSTL=DL
-  VDSLST=DLIA
-
-  ADDR=VBLANKD
-  LSB=PEEK(@ADDR) MSB=PEEK(@ADDR+1)
-  OLDVBL=VVBLKD SETVBLK(7,MSB,LSB)
-
-  ; DLI VBI
-  ;  1   1   000000 = $C0
-  NMIEN=$C0
-
-  SDMCTL=$22        ; TURN OFF ANTIC
-RETURN
+INCLUDE "H6:INIT.ACT"
 
 ;------------------------------------------------------------------------------
 ; LAUNCH PROCEDURE
 ;------------------------------------------------------------------------------
 
+SET $E=MAINADDR
+
 PROC MAIN()
   INIT()
   SETBLOCK(STARTSCREEN+STARTROW+$120,$30,GLADE)
   MAINLOOP()
-RETURN
+RET
