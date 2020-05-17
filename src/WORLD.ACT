@@ -21,7 +21,7 @@ PROC SHIPS()
   ELSEIF SHIPTYPE=10 THEN
     ROCKETBODY=3 ROCKETHEAD=13
   FI
-[96]
+RET
 
 ;------------------------------------------------------------------------------
 ; TERRAIN GENERATION PROCEDURE
