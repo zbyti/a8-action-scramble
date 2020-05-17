@@ -27,7 +27,7 @@ DEFINE
 
 ; ML OPCODES
 DEFINE
-  CLC="$18",RTI="$40",PHA="$48", RTS="$60",PLA="$68",ADCI="$69",JMPI="$6C",
+  CLC="$18",RTI="$40",PHA="$48",RTS="$60",PLA="$68",ADCI="$69",JMPI="$6C",
   STAZ="$85",STA="$8D",LDAI="$A9",LDAZ="$A5",LDA="$AD",
   CMPI="$C9",DECZ="$C6",DEC="$CE",BNE="$D0",INC="$EE",
   WSYNC="$8D$0A$D4"
