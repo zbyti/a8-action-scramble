@@ -9,8 +9,8 @@ BYTE ARRAY
     $42 0 0         ; FIRST TEXT ROW (GR.0)
     $D2 0 0         ; STARTSCREEN (GR.0) WITH HSCROL AND DLI
     $12 $92 $12 $92 $12 $92 $12 $92 $12 $92 $12 $12
-    $12 $12 $12 $12 $12 $92 $92 $92 $92 $92 $92 $92 2
-    $70             ; EMPTY ROW
+    $12 $12 $12 $12 $12 $92 $92 $92 $92 $92 $92 $92
+    $70 $70         ; TWO EMPTY ROW
     $41 DLLSB DLMSB ; JUMP TO BEGINING OF DL
   ],
   SET $E=DLIAADDR
