@@ -2,7 +2,7 @@
 ; MAIN LOOP
 ;------------------------------------------------------------------------------
 
-PROC MAINLOOP()
+PROC MAINLOOP=*()
   DO
     RSYNC(8)
     IF HSCROLI=$FF THEN

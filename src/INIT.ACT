@@ -2,7 +2,7 @@
 ; INITIALIZING THE PROGRAM VARIABLES AND INTERRUPTIONS
 ;------------------------------------------------------------------------------
 
-PROC INIT()
+PROC INIT=*()
   CARD POINTER ADDR
 
   WAIT(1)           ; FRAME SYNCHRONIZATION

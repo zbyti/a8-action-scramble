@@ -6,9 +6,7 @@
 ; PROCEDURE DRAWS BUILDINGS AND SPACE VEHICLES
 ;------------------------------------------------------------------------------
 
-PROC DRAWSHIP()
-  BYTE SHIPTYPE
-
+PROC DRAWSHIP=*()
   SHIPTYPE=RANDOM & 30
   IF SHIPTYPE>8 THEN RET FI
   ROCKETBODY=SHIPSTABLE(SHIPTYPE)
@@ -19,7 +17,7 @@ RET
 ; TERRAIN GENERATION PROCEDURE
 ;------------------------------------------------------------------------------
 
-PROC TERRAIN()
+PROC TERRAIN=*()
   SCREEN(SCREENI+$120)=0
   SCREEN(SCREENI+$F0)=0
   SCREEN(SCREENI+$C0)=0

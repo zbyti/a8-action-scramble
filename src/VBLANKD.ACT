@@ -2,6 +2,6 @@
 ; VBLANK PROCEDURE CALLED ONCE PER FRAME
 ;------------------------------------------------------------------------------
 
-PROC VBLANKD()
+PROC VBLANKD=*()
   HSCROL=HSCROLI HSCROLI==-1
 [JMPI OLDVBL]
