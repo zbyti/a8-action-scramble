@@ -5,7 +5,7 @@
 PROC MAINLOOP=*()
   DO
     RSYNC(8)
-    IF HSCROLI=$FF THEN
+    IF HSCROLI=$B THEN
       RASTERBARON
       TERRAIN()
       RASTERBAROFF
@@ -16,7 +16,7 @@ PROC MAINLOOP=*()
       ELSE
         LMS==+1 SCREENI==+1
       FI
-      HSCROLI=3
+      HSCROLI=$F
     FI
   OD
 RET
