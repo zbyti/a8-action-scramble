@@ -19,9 +19,10 @@
 ;------------------------------------------------------------------------------
 
 DEFINE
-  DLADDR="$5000",LMSADDR="$5005",
-  DLIAADDR="$1050",DLIBADDR="$10A0",DLIMSB="$10",
-  STARTSCREEN="$8000",CHARSET="$8800",
+  CODEBASE="$1400",
+  DLADDR="$8800",LMSADDR="$8805",
+  DLIAADDR="$8850",DLIBADDR="$88A0",
+  STARTSCREEN="$8000",CHARSET="$1000",
   STARTROW="$35E",LOOP="$300",
   MAINADDR="$9000"
 
@@ -60,7 +61,10 @@ MODULE
 ;------------------------------------------------------------------------------
 
 INCLUDE "H6:ASSETS.ACT"
-INCLUDE "H6:ANTIC.ACT"
+
+SET $E=CODEBASE
+SET $491=CODEBASE
+
 INCLUDE "H6:GLOBALS.ACT"
 
 ;------------------------------------------------------------------------------
@@ -69,23 +73,11 @@ INCLUDE "H6:GLOBALS.ACT"
 
 INCLUDE "H6:TOOLS.ACT"
 INCLUDE "H6:WORLD.ACT"
-INCLUDE "H6:VBLANKD.ACT"
 INCLUDE "H6:LOOP.ACT"
-
-SET $E=DLADDR
-PROC DL=*()
-[
-  $70             ; EMPTY ROW
-  $42 TEXT        ; FIRST TEXT ROW (GR.0)
-  $D2 SCREEN^     ; STARTSCREEN (GR.0) WITH HSCROL AND DLI
-  $12 $92 $12 $92 $12 $92 $12 $92 $12 $92 $12 $12
-  $12 $12 $12 $12 $12 $92 $92 $92 $92 $92 $92 $92
-  $70 $70         ; TWO EMPTY ROW
-  $41 DL          ; JUMP TO BEGINNING OF DL
-]
-
-
+INCLUDE "H6:ANTIC.ACT"
+INCLUDE "H6:VBLANKD.ACT"
 INCLUDE "H6:INIT.ACT"
+
 ;------------------------------------------------------------------------------
 ; LAUNCH PROCEDURE
 ;------------------------------------------------------------------------------
