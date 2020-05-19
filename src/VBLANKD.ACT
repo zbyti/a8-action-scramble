@@ -3,5 +3,4 @@
 ;------------------------------------------------------------------------------
 
 PROC VBLANKD()
-  IF SCROLLON THEN HSCROL=HSCROLI HSCROLI==-1 FI
 [JMPI OLDVBL]
