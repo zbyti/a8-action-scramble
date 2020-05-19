@@ -83,7 +83,6 @@ INCLUDE "H6:INIT.ACT"
 ;------------------------------------------------------------------------------
 
 SET $E=MAINADDR
-
 PROC MAIN=*()
   INIT()
   SETBLOCK(STARTSCREEN+STARTROW+$120,$30,GLADE)
