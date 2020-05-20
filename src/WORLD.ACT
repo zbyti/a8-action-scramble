@@ -3,7 +3,7 @@
 ;------------------------------------------------------------------------------
 
 ;------------------------------------------------------------------------------
-; PROCEDURE DRAWS BUILDINGS AND SPACE VEHICLES
+; PROCEDURE DRAWS ROCKETS
 ;------------------------------------------------------------------------------
 
 PROC DRAWSHIP=*()
@@ -13,7 +13,11 @@ PROC DRAWSHIP=*()
   ROCKETHEAD=SHIPSTABLE(SHIPTYPE+1)
 RET
 
-PROC DRAWRADAR()
+;------------------------------------------------------------------------------
+; PROCEDURE DRAWS ION CANNON STRUCTURE
+;------------------------------------------------------------------------------
+
+PROC DRAWCANNON()
   BYTE BTMP1,BTMP2
   CARD CTMP1,CTMP2
 
@@ -66,9 +70,10 @@ PROC TERRAIN=*()
       DRAWROW=GLADE
       IF ROW<5 THEN
         DRAWSHIP()
-        IF (RANDOM&1)=1 AND (TERRAINI&3)=2 THEN
-          DRAWRADAR()
-        FI
+        RSYNC(60)
+        [RASTERBARON]
+        IF (RANDOM&1)=1 AND (TERRAINI&3)=2 THEN DRAWCANNON() FI
+        [RASTERBAROFF]
       FI
       RET
     ELSEIF TILE=2 THEN
