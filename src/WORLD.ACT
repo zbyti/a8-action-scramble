@@ -64,9 +64,10 @@ PROC TERRAIN=*()
       DRAWROW=GLADE
       IF ROW<5 THEN
         ISCANONN==+1
-        IF ISCANONN=3 THEN
-          IF (RANDOM&3)=0 THEN DRAWCANNON() FI
-          RET
+        IF ISCANONN>2 THEN
+          IF (RANDOM&3)=0 THEN
+          DRAWCANNON() ISCANONN=0 RET
+          FI
         FI
         DRAWSHIP()
       FI
