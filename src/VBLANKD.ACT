@@ -3,5 +3,9 @@
 ;------------------------------------------------------------------------------
 
 PROC VBLANKD=*()
+  IF LMS=STARTSCREEN+LOOP THEN
+    SETBLOCK(STARTSCREEN+STARTROW+$120,$30,GLADE)
+    NEXTROW=0 SCREENI=STARTROW LMS=STARTSCREEN
+  FI
   HSCROL=HSCROLI HSCROLI==-1
 [JMPI OLDVBL]

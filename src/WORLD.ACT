@@ -18,6 +18,7 @@ RET
 ;------------------------------------------------------------------------------
 
 PROC TERRAIN=*()
+  SCREEN(SCREENI+$150)=0
   SCREEN(SCREENI+$120)=0
   SCREEN(SCREENI+$F0)=0
   SCREEN(SCREENI+$C0)=0

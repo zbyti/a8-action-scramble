@@ -19,10 +19,10 @@
 ;------------------------------------------------------------------------------
 
 DEFINE
-  CODEBASE="$1400",MAINADDR="$9000",
-  DLADDR="$8800",LMSADDR="$8805",DLIAADDR="$8850",DLIBADDR="$88A0",
-  CHARSET="$1000",STARTSCREEN="$8000",
-  STARTROW="$35E",LOOP="$300"
+  CODEBASE="$E0A",MAINADDR="$9000",
+  DLADDR="$8C00",LMSADDR="$8C05",DLIAADDR="$8C50",DLIBADDR="$8CA0",
+  STARTSCREEN="$8000",CHARSET="$8800",
+  STARTROW="$38E",LOOP="$120"
 
 ; ML OPCODES
 DEFINE
@@ -58,10 +58,6 @@ MODULE
 ;------------------------------------------------------------------------------
 
 INCLUDE "H6:ASSETS.ACT"
-
-SET $E=CODEBASE
-SET $491=CODEBASE
-
 INCLUDE "H6:GLOBALS.ACT"
 
 ;------------------------------------------------------------------------------

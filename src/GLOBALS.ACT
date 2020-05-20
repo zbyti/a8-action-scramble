@@ -2,6 +2,8 @@
 ; GLOBAL VARIABLES
 ;------------------------------------------------------------------------------
 
+SET $E=CODEBASE
+
 BYTE ARRAY
   SCREEN=STARTSCREEN,
   TEXT(48),
