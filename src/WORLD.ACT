@@ -18,21 +18,17 @@ RET
 ;------------------------------------------------------------------------------
 
 PROC DRAWCANNON()
-  BYTE BTMP1,BTMP2
   CARD CTMP1,CTMP2
 
   CTMP1=SCREENI+ROWOFFSET(ROW+1)
   CTMP2=SCREENI+ROWOFFSET(ROW+2)
-  BTMP1=SCREEN(SCREENI+ROWOFFSET(ROW)-2)
-  BTMP2=SCREEN(SCREENI+ROWOFFSET(ROW)-1)
-  IF BTMP1=GLADE AND BTMP2=GLADE THEN
-    SCREEN(CTMP1-2)=27
-    SCREEN(CTMP2-2)=0
-    SCREEN(CTMP1-1)=28
-    SCREEN(CTMP2-1)=0
-    SCREEN(CTMP1)=29
-    SCREEN(CTMP2)=30
-  FI
+
+  SCREEN(CTMP1-2)=27
+  SCREEN(CTMP2-2)=0
+  SCREEN(CTMP1-1)=28
+  SCREEN(CTMP2-1)=0
+  SCREEN(CTMP1)=29
+  SCREEN(CTMP2)=30
 RET
 
 ;------------------------------------------------------------------------------
@@ -40,8 +36,6 @@ RET
 ;------------------------------------------------------------------------------
 
 PROC TERRAIN=*()
-  TERRAINI==+1
-
   SCREEN(SCREENI+$150)=0
   SCREEN(SCREENI+$120)=0
   SCREEN(SCREENI+$F0)=0
@@ -69,19 +63,20 @@ PROC TERRAIN=*()
     IF TILE<2 THEN
       DRAWROW=GLADE
       IF ROW<5 THEN
+        ISCANONN==+1
+        IF ISCANONN=3 THEN
+          IF (RANDOM&3)=0 THEN DRAWCANNON() FI
+          RET
+        FI
         DRAWSHIP()
-        RSYNC(60)
-        [RASTERBARON]
-        IF (RANDOM&1)=1 AND (TERRAINI&3)=2 THEN DRAWCANNON() FI
-        [RASTERBAROFF]
       FI
       RET
     ELSEIF TILE=2 THEN
-      NEXTROW==-1
+      ISCANONN=0 NEXTROW==-1
       DRAWROW=RSLOPE DRAWNEXTROW=RFILL
       RET
     ELSEIF TILE=3 THEN
-      NEXTROW==+1
+      ISCANONN=0 NEXTROW==+1
       DRAWROW=LFILL DRAWNEXTROW=LSLOPE
       RET
     FI
