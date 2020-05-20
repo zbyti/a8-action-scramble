@@ -30,6 +30,16 @@ PROC TERRAIN=*()
   TILE=RANDOM & 3
   ROW=NEXTROW
 
+  IF LMS>STARTSCREEN+LOOP-$30 THEN
+    IF ROW>0 THEN
+      NEXTROW==-1
+      DRAWROW=RSLOPE DRAWNEXTROW=RFILL
+      RET
+    ELSE
+      DRAWROW=GLADE RET
+    FI
+  FI
+
   IF (ROW>0) AND (ROW<6) THEN
     IF TILE<2 THEN
       DRAWROW=GLADE
@@ -65,4 +75,12 @@ PROC TERRAIN=*()
       RET
     FI
   FI
+RET
+
+;------------------------------------------------------------------------------
+; PROCEDURE DRAWS LOOP LINE
+;------------------------------------------------------------------------------
+
+PROC DRAWLINE=*()
+  SETBLOCK(STARTSCREEN+STARTROW+$120,$30,GLADE)
 RET
