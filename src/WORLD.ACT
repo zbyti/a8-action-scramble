@@ -66,7 +66,7 @@ PROC TERRAIN=*()
         ISCANONN==+1
         IF ISCANONN>2 THEN
           IF (RANDOM&3)=0 THEN
-          DRAWCANNON() ISCANONN=0 RET
+            DRAWCANNON() ISCANONN=0 RET
           FI
         FI
         DRAWSHIP()
