@@ -16,15 +16,15 @@ RET
 ; PROCEDURE DRAWS ION CANNON STRUCTURE
 ;------------------------------------------------------------------------------
 PROC DRAWCANNON=*()
-  CTMP0=SCREENI+ROWOFFSET(ROW+2) ; 2 FLOOR
-  CTMP1=CTMP0+$30                ; 1 FLOOR
+  CTMP2=SCREENI+ROWOFFSET(ROW+2) ; 2 FLOOR
+  CTMP1=CTMP2+$30                ; 1 FLOOR
 
   SCREEN(CTMP1-2)=27
-  SCREEN(CTMP0-2)=0
+  SCREEN(CTMP2-2)=0
   SCREEN(CTMP1-1)=28
-  SCREEN(CTMP0-1)=0
+  SCREEN(CTMP2-1)=0
   SCREEN(CTMP1)=29
-  SCREEN(CTMP0)=30
+  SCREEN(CTMP2)=30
 RET
 
 ;------------------------------------------------------------------------------
