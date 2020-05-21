@@ -5,7 +5,7 @@
 ;------------------------------------------------------------------------------
 ; PROCEDURE DRAWS ROCKETS
 ;------------------------------------------------------------------------------
-PROC DRAWSHIP=*()
+PROC DRAWROCKET=*()
   SHIPTYPE=RANDOM & 30
   IF SHIPTYPE>8 THEN RET FI
   ROCKETBODY=SHIPSTABLE(SHIPTYPE)
@@ -64,7 +64,7 @@ PROC TERRAIN=*()
             DRAWCANNON() ISCANONN=0 RET
           FI
         FI
-        DRAWSHIP() RET
+        DRAWROCKET() RET
       FI
     ELSEIF TILE=2 THEN
       ISCANONN=0 NEXTROW==-1
