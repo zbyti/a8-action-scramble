@@ -57,3 +57,12 @@ PROC RSYNC=*(BYTE L)[$CD$0B$D4$D0$FB$60]
 ; Y FOR THE LSB AND A FOR THE NUMBER OF THE VECTOR TO HACK (CHANGE).
 ;------------------------------------------------------------------------------
 PROC SETVBLK=SETVBV(BYTE WHICH,MSB,LSB)
+
+;------------------------------------------------------------------------------
+; RESET WORKING VARIABLES
+;------------------------------------------------------------------------------
+PROC RESETVARS=*()
+  ISCANONN=0 NEXTROW=0
+  SCREENI=STARTROW
+  LMS=STARTSCREEN
+RET

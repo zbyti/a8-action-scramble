@@ -1,5 +1,5 @@
 ;------------------------------------------------------------------------------
-; INITIALIZING THE PROGRAM VARIABLES AND INTERRUPTIONS
+; INITIALIZING THE PROGRAM VARIABLES
 ;------------------------------------------------------------------------------
 
 PROC INIT=*()
@@ -9,6 +9,8 @@ PROC INIT=*()
   SDMCTL=0          ; TURN ON ANTIC
   NMIEN=0           ; TURN OFF NON MASKABLE INTERRUPT
 
+  RESETVARS()
+
   SETBLOCK(STARTSCREEN,$800,0)
 
   POKE(COLOR1,$E)   ; WHITE CHAR / TERRAIN
@@ -16,15 +18,12 @@ PROC INIT=*()
   POKE(COLOR4,0)    ; BORDER
   DLICOLOR=$8A
 
-  NEXTROW=0 TILE=0 HSCROLI=$F
-  SCREENI=STARTROW ISCANONN=0
-
+  TILE=0 HSCROLI=$F
   SETBLOCK(TEXT,$30,0)
 
   ADDR=CHARSET
   CHBAS=PEEK(@ADDR+1)
 
-  LMS=STARTSCREEN
   SDLSTL=DLADDR
   VDSLST=DLIAADDR
 

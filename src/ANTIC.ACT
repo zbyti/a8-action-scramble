@@ -3,8 +3,7 @@
 ;------------------------------------------------------------------------------
 
 SET $E=DLADDR
-PROC DL=*()
-[
+PROC DL=*()[
   $70             ; EMPTY ROW
   $42 TEXT        ; FIRST TEXT ROW (GR.0)
   $D2 SCREEN^     ; STARTSCREEN (GR.0) WITH HSCROL AND DLI
