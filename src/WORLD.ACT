@@ -28,49 +28,51 @@ RET
 ; TERRAIN GENERATION PROCEDURE
 ;------------------------------------------------------------------------------
 PROC TERRAIN=*()
-;-------------------------------!
-; CLEAR RIGHT COLUMN                  !
-;-------------------------------!
-  CTMP=SCREENI                  ;
-; 1126: 18        CLC           !
-; 1127: A9 00     LDA #$00      !
-; 1129: 65 5E     ADC $5E       !
-; 112B: 85 CC     STA $CC       !
-; 112D: A9 80     LDA #$80      !
-; 112F: 65 5F     ADC $5F       !
-; 1131: 85 CD     STA $CD       !
-  [                             ;
-    $A2$07$A0$00$98$91$CC$18    ;
-    $A5$CC$69$30$85$CC$90$02    ;
-    $E6$CD$CA$10$EF             ;
-  ]                             ;
-; 1133: A2 07     LDX #$07      !
-; 1135: A0 00     LDY #$00      !
-; 1137: 98        TYA           !
-; 1138: 91 CC     STA ($CC),Y   !
-; 113A: 18        CLC           !
-; 113B: A5 CC     LDA $CC       !
-; 113D: 69 30     ADC #$30      !
-; 113F: 85 CC     STA $CC       !
-; 1141: 90 02     BCC $1145     !
-; 1143: E6 CD     INC $CD       !
-; 1145: CA        DEX           !
-; 1146: 10 EF     BPL $1137     !
-;-------------------------------!
+;----------------------------------!
+; CLEAR RIGHT COLUMN               !
+;----------------------------------!
+  CTMP=SCREENI-ROWOFFSET(NEXTROW)  ;                ;
+; 1126: 18        CLC              !
+; 1127: A9 00     LDA #$00         !
+; 1129: 65 5E     ADC $5E          !
+; 112B: 85 CC     STA $CC          !
+; 112D: A9 80     LDA #$80         !
+; 112F: 65 5F     ADC $5F          !
+; 1131: 85 CD     STA $CD          !
+  [                                ;
+    $A2$07$A0$00$98$91$CC$18       ;
+    $A5$CC$69$30$85$CC$90$02       ;
+    $E6$CD$CA$10$EF                ;
+  ]                                ;
+; 1133: A2 07     LDX #$07         !
+; 1135: A0 00     LDY #$00         !
+; 1137: 98        TYA              !
+; 1138: 91 CC     STA ($CC),Y      !
+; 113A: 18        CLC              !
+; 113B: A5 CC     LDA $CC          !
+; 113D: 69 30     ADC #$30         !
+; 113F: 85 CC     STA $CC          !
+; 1141: 90 02     BCC $1145        !
+; 1143: E6 CD     INC $CD          !
+; 1145: CA        DEX              !
+; 1146: 10 EF     BPL $1137        !
+;----------------------------------!
 
   ROW=NEXTROW
 
-  FLOOR2=SCREENI+ROWOFFSET(ROW+2) ; 2 FLOOR
-  FLOOR1=FLOOR2+$30               ; 1 FLOOR
+  FLOOR2=SCREENI-$60 ; 2 FLOOR
+  FLOOR1=SCREENI-$30 ; 1 FLOOR
 
   ; LEVELING THE AREA
   IF LMS>STARTSCREEN+LOOP-$30 THEN
     IF ROW>0 THEN
       NEXTROW==-1
-      DRAWROW=RSLOPE DRAWNEXTROW=RFILL
+      MATRIX(SCREENI)=RSLOPE
+      SCREENI==+$30
+      MATRIX(SCREENI)=RFILL
       RET
     ELSE
-      DRAWROW=GLADE RET
+      MATRIX(SCREENI)=GLADE RET
     FI
   FI
 
@@ -78,7 +80,7 @@ PROC TERRAIN=*()
 
   IF (ROW>0) AND (ROW<6) THEN
     IF TILE<2 THEN
-      DRAWROW=GLADE
+      MATRIX(SCREENI)=GLADE
       IF ROW<5 THEN
 
         ; SETS UP BUILDINGS AND VEHICLES
@@ -93,31 +95,39 @@ PROC TERRAIN=*()
       FI
     ELSEIF TILE=2 THEN
       ISCANONN=0 NEXTROW==-1
-      DRAWROW=RSLOPE DRAWNEXTROW=RFILL
+      MATRIX(SCREENI)=RSLOPE
+      SCREENI==+$30
+      MATRIX(SCREENI)=RFILL
       RET
     ELSEIF TILE=3 THEN
       ISCANONN=0 NEXTROW==+1
-      DRAWROW=LFILL DRAWNEXTROW=LSLOPE
+       MATRIX(SCREENI)=LFILL
+       SCREENI==-$30
+       MATRIX(SCREENI)=LSLOPE
       RET
     FI
   FI
 
   IF ROW=0 THEN
     IF TILE<2 THEN
-      DRAWROW=GLADE RET
+      MATRIX(SCREENI)=GLADE RET
     ELSE
       NEXTROW=1
-      DRAWROW=LFILL DRAWNEXTROW=LSLOPE
+      MATRIX(SCREENI)=LFILL
+      SCREENI==-$30
+      MATRIX(SCREENI)=LSLOPE
       RET
     FI
   FI
 
   IF ROW=6 THEN
     IF TILE=3 THEN
-      DRAWROW=GLADE RET
+      MATRIX(SCREENI)=GLADE RET
     ELSE
       NEXTROW=5
-      DRAWROW=RSLOPE DRAWNEXTROW=RFILL
+      MATRIX(SCREENI)=RSLOPE
+      SCREENI==+$30
+      MATRIX(SCREENI)=RFILL
       RET
     FI
   FI
@@ -127,5 +137,5 @@ RET
 ; PROCEDURE DRAWS LOOP LINE
 ;------------------------------------------------------------------------------
 PROC DRAWLINE=*()
-  SETBLOCK(STARTSCREEN+STARTROW+$120,$30,GLADE)
+  SETBLOCK(STARTSCREEN+STARTROW-$30,$30,GLADE)
 RET
