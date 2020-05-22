@@ -31,14 +31,7 @@ PROC TERRAIN=*()
 ;----------------------------------!
 ; CLEAR RIGHT COLUMN               !
 ;----------------------------------!
-  CTMP2=SCREENI-ROWOFFSET(ROW) ;
-; 1126: 18        CLC              !
-; 1127: A9 00     LDA #$00         !
-; 1129: 65 5E     ADC $5E          !
-; 112B: 85 CC     STA $CC          !
-; 112D: A9 80     LDA #$80         !
-; 112F: 65 5F     ADC $5F          !
-; 1131: 85 CD     STA $CD          !
+  CTMP2=SCREENI-ROWOFFSET(ROW)     ;
   [                                ;
     $A2$07$A0$00$98$91$CC$18       ;
     $A5$CC$69$30$85$CC$90$02       ;
