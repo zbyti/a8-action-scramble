@@ -19,19 +19,19 @@ PROC DRAWCANNON=*()
   CTMP2=SCREENI+ROWOFFSET(ROW+2) ; 2 FLOOR
   CTMP1=CTMP2+$30                ; 1 FLOOR
 
-  SCREEN(CTMP1-2)=27
-  SCREEN(CTMP2-2)=0
-  SCREEN(CTMP1-1)=28
-  SCREEN(CTMP2-1)=0
-  SCREEN(CTMP1)=29
-  SCREEN(CTMP2)=30
+  MATRIX(CTMP1-2)=27
+  MATRIX(CTMP2-2)=0
+  MATRIX(CTMP1-1)=28
+  MATRIX(CTMP2-1)=0
+  MATRIX(CTMP1)=29
+  MATRIX(CTMP2)=30
 RET
 
 ;------------------------------------------------------------------------------
 ; TERRAIN GENERATION PROCEDURE
 ;------------------------------------------------------------------------------
 PROC TERRAIN=*()
-  CTMP2=STARTSCREEN+SCREENI
+  CTMP2=SCREENI
 ; 1126: 18        CLC
 ; 1127: A9 00     LDA #$00
 ; 1129: 65 5E     ADC $5E
