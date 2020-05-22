@@ -8,20 +8,20 @@
 PROC DRAWROCKET=*()
   SHIPTYPE=RANDOM & 30
   IF SHIPTYPE>8 THEN RET FI
-  MATRIX(FLOOR1)=SHIPSTABLE(SHIPTYPE)
-  MATRIX(FLOOR2)=SHIPSTABLE(SHIPTYPE+1)
+  MATRIX(SCREENI-$30)=SHIPSTABLE(SHIPTYPE)
+  MATRIX(SCREENI-$60)=SHIPSTABLE(SHIPTYPE+1)
 RET
 
 ;------------------------------------------------------------------------------
 ; PROCEDURE DRAWS ION CANNON STRUCTURE
 ;------------------------------------------------------------------------------
 PROC DRAWCANNON=*()
-  MATRIX(FLOOR1-2)=27
-  MATRIX(FLOOR2-2)=0
-  MATRIX(FLOOR1-1)=28
-  MATRIX(FLOOR2-1)=0
-  MATRIX(FLOOR1)=29
-  MATRIX(FLOOR2)=30
+  MATRIX(SCREENI-$32)=27
+  MATRIX(SCREENI-$62)=0
+  MATRIX(SCREENI-$31)=28
+  MATRIX(SCREENI-$61)=0
+  MATRIX(SCREENI-$30)=29
+  MATRIX(SCREENI-$60)=30
 RET
 
 ;------------------------------------------------------------------------------
@@ -31,7 +31,7 @@ PROC TERRAIN=*()
 ;----------------------------------!
 ; CLEAR RIGHT COLUMN               !
 ;----------------------------------!
-  CTMP=SCREENI-ROWOFFSET(NEXTROW)  ;                ;
+  CTMP2=SCREENI-ROWOFFSET(ROW) ;
 ; 1126: 18        CLC              !
 ; 1127: A9 00     LDA #$00         !
 ; 1129: 65 5E     ADC $5E          !
@@ -58,15 +58,10 @@ PROC TERRAIN=*()
 ; 1146: 10 EF     BPL $1137        !
 ;----------------------------------!
 
-  ROW=NEXTROW
-
-  FLOOR2=SCREENI-$60 ; 2 FLOOR
-  FLOOR1=SCREENI-$30 ; 1 FLOOR
-
   ; LEVELING THE AREA
   IF LMS>STARTSCREEN+LOOP-$30 THEN
     IF ROW>0 THEN
-      NEXTROW==-1
+      ROW==-1
       MATRIX(SCREENI)=RSLOPE
       SCREENI==+$30
       MATRIX(SCREENI)=RFILL
@@ -94,16 +89,16 @@ PROC TERRAIN=*()
 
       FI
     ELSEIF TILE=2 THEN
-      ISCANONN=0 NEXTROW==-1
+      ISCANONN=0 ROW==-1
       MATRIX(SCREENI)=RSLOPE
       SCREENI==+$30
       MATRIX(SCREENI)=RFILL
       RET
     ELSEIF TILE=3 THEN
-      ISCANONN=0 NEXTROW==+1
-       MATRIX(SCREENI)=LFILL
-       SCREENI==-$30
-       MATRIX(SCREENI)=LSLOPE
+      ISCANONN=0 ROW==+1
+      MATRIX(SCREENI)=LFILL
+      SCREENI==-$30
+      MATRIX(SCREENI)=LSLOPE
       RET
     FI
   FI
@@ -112,7 +107,7 @@ PROC TERRAIN=*()
     IF TILE<2 THEN
       MATRIX(SCREENI)=GLADE RET
     ELSE
-      NEXTROW=1
+      ROW=1
       MATRIX(SCREENI)=LFILL
       SCREENI==-$30
       MATRIX(SCREENI)=LSLOPE
@@ -124,7 +119,7 @@ PROC TERRAIN=*()
     IF TILE=3 THEN
       MATRIX(SCREENI)=GLADE RET
     ELSE
-      NEXTROW=5
+      ROW=5
       MATRIX(SCREENI)=RSLOPE
       SCREENI==+$30
       MATRIX(SCREENI)=RFILL
