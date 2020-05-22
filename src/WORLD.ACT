@@ -126,5 +126,5 @@ RET
 ; PROCEDURE DRAWS LOOP LINE
 ;------------------------------------------------------------------------------
 PROC DRAWLINE=*()
-  SETBLOCK(STARTSCREEN+STARTROW+$120,$30,GLADE)
+  SETBLOCK(STARTPLAIN,$30,GLADE)
 RET
