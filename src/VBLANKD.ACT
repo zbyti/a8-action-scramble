@@ -3,7 +3,7 @@
 ;------------------------------------------------------------------------------
 
 PROC VBLANKD=*()
-  [PUSHAXYONSTACK]
+  [PHAXY]
   IF HSCROLI=$B THEN
     IF LMS=STARTSCREEN+LOOP+4 THEN
       DRAWLINE() RESETVARS()
@@ -13,5 +13,5 @@ PROC VBLANKD=*()
     HSCROLI=$F
   FI
   HSCROL=HSCROLI HSCROLI==-1
-  [PULLAXYFROMSTACK]
+  [PLAXY]
 [JMPI OLDVBL]
