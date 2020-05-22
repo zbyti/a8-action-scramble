@@ -8,30 +8,27 @@
 PROC DRAWROCKET=*()
   SHIPTYPE=RANDOM & 30
   IF SHIPTYPE>8 THEN RET FI
-  ROCKETBODY=SHIPSTABLE(SHIPTYPE)
-  ROCKETHEAD=SHIPSTABLE(SHIPTYPE+1)
+  MATRIX(FLOOR1)=SHIPSTABLE(SHIPTYPE)
+  MATRIX(FLOOR2)=SHIPSTABLE(SHIPTYPE+1)
 RET
 
 ;------------------------------------------------------------------------------
 ; PROCEDURE DRAWS ION CANNON STRUCTURE
 ;------------------------------------------------------------------------------
 PROC DRAWCANNON=*()
-  CTMP2=SCREENI+ROWOFFSET(ROW+2) ; 2 FLOOR
-  CTMP1=CTMP2+$30                ; 1 FLOOR
-
-  MATRIX(CTMP1-2)=27
-  MATRIX(CTMP2-2)=0
-  MATRIX(CTMP1-1)=28
-  MATRIX(CTMP2-1)=0
-  MATRIX(CTMP1)=29
-  MATRIX(CTMP2)=30
+  MATRIX(FLOOR1-2)=27
+  MATRIX(FLOOR2-2)=0
+  MATRIX(FLOOR1-1)=28
+  MATRIX(FLOOR2-1)=0
+  MATRIX(FLOOR1)=29
+  MATRIX(FLOOR2)=30
 RET
 
 ;------------------------------------------------------------------------------
 ; TERRAIN GENERATION PROCEDURE
 ;------------------------------------------------------------------------------
 PROC TERRAIN=*()
-  CTMP2=SCREENI
+  CTMP=SCREENI
 ; 1126: 18        CLC
 ; 1127: A9 00     LDA #$00
 ; 1129: 65 5E     ADC $5E
@@ -58,6 +55,9 @@ PROC TERRAIN=*()
 ; 1146: 10 ED     BPL $1135
 
   ROW=NEXTROW
+
+  FLOOR2=SCREENI+ROWOFFSET(ROW+2) ; 2 FLOOR
+  FLOOR1=FLOOR2+$30               ; 1 FLOOR
 
   ; LEVELING THE AREA
   IF LMS>STARTSCREEN+LOOP-$30 THEN
