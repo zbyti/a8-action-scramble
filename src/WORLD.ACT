@@ -31,14 +31,31 @@ RET
 ; TERRAIN GENERATION PROCEDURE
 ;------------------------------------------------------------------------------
 PROC TERRAIN=*()
-  SCREEN(SCREENI+$150)=0
-  SCREEN(SCREENI+$120)=0
-  SCREEN(SCREENI+$F0)=0
-  SCREEN(SCREENI+$C0)=0
-  SCREEN(SCREENI+$90)=0
-  SCREEN(SCREENI+$60)=0
-  SCREEN(SCREENI+$30)=0
-  SCREEN(SCREENI)=0
+  CTMP2=STARTSCREEN+SCREENI
+; 1126: 18        CLC
+; 1127: A9 00     LDA #$00
+; 1129: 65 5E     ADC $5E
+; 112B: 85 CC     STA $CC
+; 112D: A9 80     LDA #$80
+; 112F: 65 5F     ADC $5F
+; 1131: 85 CD     STA $CD
+  [
+    $A2$07$A9$00$A8$91$CC$18
+    $A5$CC$69$30$85$CC$90$02
+    $E6$CD$CA$10$ED
+  ]
+; 1133: A2 07     LDX #$07
+; 1135: A9 00     LDA #$00
+; 1137: A8        TAY
+; 1138: 91 CC     STA ($CC),Y
+; 113A: 18        CLC
+; 113B: A5 CC     LDA $CC
+; 113D: 69 30     ADC #$30
+; 113F: 85 CC     STA $CC
+; 1141: 90 02     BCC $1145
+; 1143: E6 CD     INC $CD
+; 1145: CA        DEX
+; 1146: 10 ED     BPL $1135
 
   ROW=NEXTROW
 
