@@ -31,7 +31,7 @@ PROC TERRAIN=*()
 ;----------------------------------!
 ; CLEAR RIGHT COLUMN               !
 ;----------------------------------!
-  CTMP2=SCREENI-ROWOFFSET(ROW)     ;
+  CTMP2=LMS+STARTROW               ;
   [                                ;
     $A2$07$A0$00$98$91$CC$18       ;
     $A5$CC$69$30$85$CC$90$02       ;
@@ -125,5 +125,5 @@ RET
 ; PROCEDURE DRAWS LOOP LINE
 ;------------------------------------------------------------------------------
 PROC DRAWLINE=*()
-  SETBLOCK(STARTSCREEN+STARTROW-$30,$30,GLADE)
+  SETBLOCK(STARTSCREEN+STARTROW+$120,$30,GLADE)
 RET
