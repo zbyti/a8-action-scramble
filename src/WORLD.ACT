@@ -16,10 +16,8 @@ RET
 ; PROCEDURE DRAWS ION CANNON STRUCTURE
 ;------------------------------------------------------------------------------
 PROC DRAWCANNON=*()
-  POKE(SCREENI-$32,27)
-  POKE(SCREENI-$62,0)
-  POKE(SCREENI-$31,28)
-  POKE(SCREENI-$61,0)
+  POKEC(SCREENI-$32,$1C1B)
+  POKEC(SCREENI-$62,0)
   POKE(SCREENI-$30,29)
   POKE(SCREENI-$60,30)
 RET
