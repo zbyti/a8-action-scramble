@@ -1,4 +1,0 @@
-{
-	"shell_cmd": "xfce4-terminal -x atari800 -state /home/zbyti/Retro/Atari/a8s/scramble-compile.a8s",
-	"selector": "source.action"
-}
