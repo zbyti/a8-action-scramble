@@ -6,10 +6,10 @@
 ; PROCEDURE DRAWS ROCKETS
 ;------------------------------------------------------------------------------
 PROC DRAWROCKET=*()
-  SHIPTYPE=RANDOM & 30
-  IF SHIPTYPE>8 THEN RET FI
-  POKE(SCREENI-$30,SHIPSTABLE(SHIPTYPE))
-  POKE(SCREENI-$60,SHIPSTABLE(SHIPTYPE+1))
+  SHIPTYPE=RANDOM & 15
+  IF SHIPTYPE>4 THEN RET FI
+  POKE(SCREENI-$30,SHIPSBODYTABLE(SHIPTYPE))
+  POKE(SCREENI-$60,SHIPSHEADTABLE(SHIPTYPE))
 RET
 
 ;------------------------------------------------------------------------------
