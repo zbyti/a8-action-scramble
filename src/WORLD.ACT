@@ -29,6 +29,7 @@ PROC TERRAIN=*()
 
   ;--------------------------------!
   ; CLEAR RIGHT COLUMN             !
+  ; LDX #$07 ROWS TO CLEAR         !
   ;--------------------------------!
   COLTOCLEAN=LMS+STARTROW          ;
   [                                ;
@@ -51,7 +52,7 @@ PROC TERRAIN=*()
   ;--------------------------------!
 
   ; LEVELING THE AREA
-  IF LMS>STARTSCREEN+LOOP-$30 THEN
+  IF LMS>TERRAINEND THEN
     IF ROW>0 THEN
       ROW==-1
       TERPOKE(RSLOPE) SCREENI==+$30 TERPOKE(RFILL)
@@ -62,34 +63,6 @@ PROC TERRAIN=*()
   FI
 
   TILE=RANDOM & 3
-
-  IF (ROW>0) AND (ROW<6) THEN
-    IF TILE<2 THEN
-      TERPOKE(GLADE)
-
-      IF ROW<5 THEN
-        ; SETS UP BUILDINGS AND VEHICLES
-        ISCANONN==+1
-        IF ISCANONN>2 THEN
-          IF (RANDOM&3)=0 THEN
-            DRAWCANNON() ISCANONN=0
-            RET
-          FI
-        FI
-        DRAWROCKET()
-        RET
-      FI
-
-    ELSEIF TILE=2 THEN
-      ISCANONN=0 ROW==-1
-      TERPOKE(RSLOPE) SCREENI==+$30 TERPOKE(RFILL)
-      RET
-    ELSEIF TILE=3 THEN
-      ISCANONN=0 ROW==+1
-      TERPOKE(LFILL) SCREENI==-$30 TERPOKE(LSLOPE)
-      RET
-    FI
-  FI
 
   IF ROW=0 THEN
     IF TILE<2 THEN
@@ -110,6 +83,31 @@ PROC TERRAIN=*()
       RET
     FI
   FI
+
+  IF TILE=2 THEN
+    ISCANONN=0 ROW==-1
+    TERPOKE(RSLOPE) SCREENI==+$30 TERPOKE(RFILL)
+    RET
+  ELSEIF TILE=3 THEN
+    ISCANONN=0 ROW==+1
+    TERPOKE(LFILL) SCREENI==-$30 TERPOKE(LSLOPE)
+    RET
+  FI
+
+  TERPOKE(GLADE)
+
+  IF ROW<5 THEN
+    ; SETS UP BUILDINGS AND VEHICLES
+    ISCANONN==+1
+    IF ISCANONN>2 THEN
+      IF (RANDOM&3)=0 THEN
+        DRAWCANNON() ISCANONN=0
+        RET
+      FI
+    FI
+    DRAWROCKET() RET
+  FI
+
 RET
 
 ;------------------------------------------------------------------------------
