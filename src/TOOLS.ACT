@@ -102,6 +102,6 @@ PROC SETVBLK=SETVBV(BYTE WHICH,MSB,LSB)
 ;------------------------------------------------------------------------------
 PROC RESETVARS=*()
   ISCANONN=0 ROW=0
-  SCREENI=STARTSCREENPOINTER
+  SCREENI=STARTTERRAIN
   LMS=STARTSCREEN
 RET

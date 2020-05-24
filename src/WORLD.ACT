@@ -8,18 +8,18 @@
 PROC DRAWROCKET=*()
   SHIPTYPE=RANDOM & 15
   IF SHIPTYPE>4 THEN RET FI
-  CTMP1=SCREENI-$30 BPOKE(SHIPSBODY(SHIPTYPE))
-  CTMP1=SCREENI-$60 BPOKE(SHIPSHEAD(SHIPTYPE))
+  POKEADDR=SCREENI-$30 BPOKE(SHIPSBODY(SHIPTYPE))
+  POKEADDR=SCREENI-$60 BPOKE(SHIPSHEAD(SHIPTYPE))
 RET
 
 ;------------------------------------------------------------------------------
 ; PROCEDURE DRAWS ION CANNON STRUCTURE
 ;------------------------------------------------------------------------------
 PROC DRAWCANNON=*()
-  CTMP1=SCREENI-$32 BPOKEC($1C1B)
-  CTMP1=SCREENI-$62 BPOKEC(0)
-  CTMP1=SCREENI-$30 BPOKE(29)
-  CTMP1=SCREENI-$60 BPOKE(30)
+  POKEADDR=SCREENI-$32 BPOKEC($1C1B)
+  POKEADDR=SCREENI-$62 BPOKEC(0)
+  POKEADDR=SCREENI-$30 BPOKE(29)
+  POKEADDR=SCREENI-$60 BPOKE(30)
 RET
 
 ;------------------------------------------------------------------------------
@@ -30,7 +30,7 @@ PROC TERRAIN=*()
   ;--------------------------------!
   ; CLEAR RIGHT COLUMN             !
   ;--------------------------------!
-  CTMP2=LMS+STARTROW               ;
+  COLTOCLEAN=LMS+STARTROW         ;
   [                                ;
     $A2$07$A0$00$98$91$CC$18       ;
     $A5$CC$69$30$85$CC$90$02       ;
