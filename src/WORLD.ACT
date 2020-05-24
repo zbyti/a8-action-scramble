@@ -30,7 +30,7 @@ PROC TERRAIN=*()
   ;--------------------------------!
   ; CLEAR RIGHT COLUMN             !
   ;--------------------------------!
-  COLTOCLEAN=LMS+STARTROW         ;
+  COLTOCLEAN=LMS+STARTROW          ;
   [                                ;
     $A2$07$A0$00$98$91$CC$18       ;
     $A5$CC$69$30$85$CC$90$02       ;
