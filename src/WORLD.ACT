@@ -16,6 +16,7 @@ RET
 ; PROCEDURE DRAWS ION CANNON STRUCTURE
 ;------------------------------------------------------------------------------
 PROC DRAWCANNON=*()
+
   POKEADDR=SCREENI-$32 ELMPOKEC($0A09)
   POKEADDR=SCREENI-$62 ELMPOKEC(0)
   POKEADDR=SCREENI-$30 ELMPOKE(11)
