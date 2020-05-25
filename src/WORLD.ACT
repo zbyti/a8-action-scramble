@@ -7,7 +7,7 @@
 ;------------------------------------------------------------------------------
 PROC DRAWROCKET=*()
   SHIPTYPE=(RANDOM%1) & 15
-  IF SHIPTYPE>5 THEN RET FI
+  IF SHIPTYPE>7 THEN RET FI
   POKEADDR=SCREENI-$30 ELMPOKE(SHIPTYPE) SHIPTYPE==+1
   POKEADDR=SCREENI-$60 ELMPOKE(SHIPTYPE)
 RET
@@ -16,10 +16,10 @@ RET
 ; PROCEDURE DRAWS ION CANNON STRUCTURE
 ;------------------------------------------------------------------------------
 PROC DRAWCANNON=*()
-  POKEADDR=SCREENI-$32 ELMPOKEC($1C1B)
+  POKEADDR=SCREENI-$32 ELMPOKEC($0A09)
   POKEADDR=SCREENI-$62 ELMPOKEC(0)
-  POKEADDR=SCREENI-$30 ELMPOKE(29)
-  POKEADDR=SCREENI-$60 ELMPOKE(30)
+  POKEADDR=SCREENI-$30 ELMPOKE(11)
+  POKEADDR=SCREENI-$60 ELMPOKE(12)
 RET
 
 ;------------------------------------------------------------------------------

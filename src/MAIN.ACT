@@ -37,7 +37,7 @@ DEFINE
 
 ; HELPERS
 DEFINE
-  LSLOPE="10",LFILL="11",GLADE="12",RFILL="13",RSLOPE="14",
+  LSLOPE="27",LFILL="28",GLADE="29",RFILL="30",RSLOPE="31",
   RET="[96]"
 
 ;------------------------------------------------------------------------------
