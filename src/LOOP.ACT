@@ -8,6 +8,11 @@ PROC MAINLOOP=*()
     [RBARON]
     IF HSCROLI=$B THEN
       TERRAIN()
+
+        BTMP1==+1
+        IF BTMP1<3 THEN CHBAS==+4 ELSE CHBAS==-4 FI
+        IF BTMP1=4 THEN BTMP1=0 FI
+
     FI
     [RBAROFF]
   OD
