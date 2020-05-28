@@ -3,7 +3,7 @@
 ;------------------------------------------------------------------------------
 
 PROC VBLANKD=*()
-  [PHAXY]
+  [PHR]
   IF HSCROLI=$B THEN
     IF LMS=LOOPEND THEN
       DRAWLINE() RESETVARS()
@@ -13,5 +13,5 @@ PROC VBLANKD=*()
     HSCROLI=$F
   FI
   HSCROL=HSCROLI HSCROLI==-1 ; FINE SCROLL
-  [PLAXY]
+  [PLR]
 [JMP OLDVBL]
