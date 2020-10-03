@@ -3,8 +3,8 @@
 ;------------------------------------------------------------------------------
 
 PROC INIT=*()
-  CARD POINTER ADDR
-  BYTE LSB,MSB
+  CARD POINTER ADDR=[0]
+  BYTE LSB=[0],MSB=[0]
 
   WAIT(1)           ; FRAME SYNCHRONIZATION
   SDMCTL=0          ; TURN OFF ANTIC
@@ -34,7 +34,7 @@ PROC INIT=*()
   SDLSTL=DLADDR
   VDSLST=DLIAADDR
 
-  OLDVBL=VVBLKD ADDR=VBLANKD
+  ADDR=VBLANKD
   LSB=PEEK(@ADDR) MSB=PEEK(@ADDR+1)
   SETVBLK(7,MSB,LSB)
 
