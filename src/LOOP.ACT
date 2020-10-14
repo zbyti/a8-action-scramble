@@ -5,7 +5,7 @@
 PROC MAINLOOP=*()
   DO
     RSYNC(8)
-    [RBARON]
+    RBARON
     IF HSCROLI=$B THEN
       TERRAIN()
 
@@ -19,6 +19,6 @@ PROC MAINLOOP=*()
       COARSEI=0 FI
 
     FI
-    [RBAROFF]
+    RBAROFF
   OD
 RET
